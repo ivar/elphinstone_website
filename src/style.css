@@ -1,0 +1,66 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+@theme {
+  --font-sans: "Nunito", sans-serif;
+  --font-serif: "Fraunces", serif;
+}
+
+html {
+  font-size: 125%;
+}
+
+h1, h2, h3, h4, h5, h6, .card-title {
+  font-family: var(--font-serif);
+}
+
+@plugin "daisyui/theme" {
+  name: "elphinstone";
+  default: true;
+  color-scheme: light;
+
+  /* Deep teal-blue — mountain */
+  --color-primary: oklch(45% 0.08 215);
+  --color-primary-content: oklch(98% 0.005 210);
+
+  /* Olive / forest green — hills & grass */
+  --color-secondary: oklch(60% 0.14 135);
+  --color-secondary-content: oklch(98% 0.005 135);
+
+  /* Golden yellow — sun & fields */
+  --color-accent: oklch(82% 0.14 85);
+  --color-accent-content: oklch(25% 0.04 85);
+
+  /* Dark navy — outlines & text */
+  --color-neutral: oklch(25% 0.04 225);
+  --color-neutral-content: oklch(95% 0.01 225);
+
+  /* Warm cream background */
+  --color-base-100: oklch(97% 0.005 90);
+  --color-base-200: oklch(94% 0.01 100);
+  --color-base-300: oklch(90% 0.02 110);
+  --color-base-content: #404949;
+
+  /* Medium teal */
+  --color-info: oklch(58% 0.08 200);
+  --color-info-content: oklch(98% 0.005 200);
+
+  /* Green */
+  --color-success: oklch(62% 0.15 145);
+  --color-success-content: oklch(98% 0.005 145);
+
+  /* Golden */
+  --color-warning: oklch(82% 0.14 85);
+  --color-warning-content: oklch(25% 0.04 85);
+
+  /* Warm rust */
+  --color-error: oklch(55% 0.2 25);
+  --color-error-content: oklch(98% 0.005 25);
+
+  --radius-selector: 1rem;
+  --radius-field: 0.5rem;
+  --radius-box: 0.75rem;
+  --border: 1px;
+  --depth: 1;
+  --noise: 0;
+}
