@@ -1,6 +1,8 @@
 # Elphinstone Farm
 
-A small-scale agritech solarpunk venture on the Sunshine Coast, BC. Syntropic agroforestry labs, a native plant nursery, and a collaborative workspace — rooted in the Salish Sea bioregion.
+Landing page for a a small-scale agritech solarpunk venture on the Sunshine Coast, BC.
+Syntropic agroforestry lab, local and indigenous agriculture, and a collaborative workspace — rooted in the Salish Sea bioregion.
+published at  <https://elphinstone.farm>
 
 ## Getting Started
 
