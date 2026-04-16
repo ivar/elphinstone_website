@@ -1,0 +1,4 @@
+baseURL = "https://elphinstone.farm/"
+languageCode = "en-us"
+title = "elphinstone.farm"
+disableKinds = ["taxonomy", "term"]

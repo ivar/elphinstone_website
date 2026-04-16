@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="en" data-theme="elphinstone">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/images/logo.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ .Site.Title }}</title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body class="min-h-screen w-full m-0 p-0">
+    {{- block "main" . }}{{- end }}
+  </body>
+</html>

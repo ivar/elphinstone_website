@@ -2,18 +2,13 @@
   "name": "elphinstone.farm",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
-  },
-  "devDependencies": {
-    "typescript": "~5.9.3",
-    "vite": "^7.3.1"
+    "dev": "concurrently \"tailwindcss -i ./assets/css/style.css -o ./static/css/style.css --watch\" \"hugo server\"",
+    "build": "tailwindcss -i ./assets/css/style.css -o ./static/css/style.css && hugo"
   },
   "dependencies": {
-    "@tailwindcss/vite": "^4.1.18",
+    "@tailwindcss/cli": "^4.1.18",
+    "concurrently": "^9.1.2",
     "daisyui": "^5.5.18",
     "tailwindcss": "^4.1.18"
   }

@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(hugo version *)",
+      "Bash(mkdir -p /home/ivar/projects/elphinstone_website/layouts/_default /home/ivar/projects/elphinstone_website/assets/css /home/ivar/projects/elphinstone_website/content)",
+      "Bash(cp /home/ivar/projects/elphinstone_website/public/images/logo.svg /home/ivar/projects/elphinstone_website/static/logo.svg)",
+      "Bash(mv /home/ivar/projects/elphinstone_website/public/images /home/ivar/projects/elphinstone_website/static/images)",
+      "Bash(mkdir -p /home/ivar/projects/elphinstone_website/layouts/_default /home/ivar/projects/elphinstone_website/assets/css /home/ivar/projects/elphinstone_website/content /home/ivar/projects/elphinstone_website/static)",
+      "Bash(hugo *)",
+      "Bash(npx --version)",
+      "Bash(npm run *)",
+      "Bash(npm install *)"
+    ]
+  }
+}
