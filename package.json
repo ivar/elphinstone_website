@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "dev": "concurrently \"tailwindcss -i ./assets/css/style.css -o ./static/css/style.css --watch\" \"hugo server\"",
+    "dev": "concurrently \"tailwindcss -i ./assets/css/style.css -o ./static/css/style.css --watch\" \"hugo server --bind 0.0.0.0\"",
     "build": "tailwindcss -i ./assets/css/style.css -o ./static/css/style.css && hugo"
   },
   "dependencies": {

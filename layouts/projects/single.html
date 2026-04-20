@@ -1,0 +1,58 @@
+{{ define "main" }}
+<div class="min-h-screen flex flex-col">
+  <div class="bg-linear-to-b from-white to-[#e3e6e7]">
+    <div class="flex items-center justify-center pt-6">
+      <a href="/"><img class="max-w-64" src="/images/logo.png" alt="Elphinstone Farm" /></a>
+    </div>
+
+    {{ partial "nav.html" . }}
+
+    <div class="max-w-6xl mx-auto px-6 py-10">
+      <h1 class="text-4xl font-bold text-primary mb-4 text-center">{{ .Title }}</h1>
+      <p class="text-center text-lg mb-10 max-w-2xl mx-auto">What we're growing, building, and learning right now. These are early-stage initiatives — subject to change as the land and community shape our direction.</p>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12">
+
+        <div class="card bg-secondary text-secondary-content shadow-md">
+          <div class="card-body">
+            <h2 class="card-title">Syntropic Agroforestry Labs</h2>
+            <p>Designing and planting multi-strata food forests modelled on natural succession. Our test plots explore combinations of canopy trees, shrubs, groundcovers, and root crops suited to the coastal BC climate.</p>
+            <p>We're documenting soil health, canopy development, and yield over time — with the goal of sharing open-source growing guides for the Salish Sea bioregion.</p>
+            <div class="badge badge-soft mt-2">In progress</div>
+          </div>
+        </div>
+
+        <div class="card bg-accent text-accent-content shadow-md">
+          <div class="card-body">
+            <h2 class="card-title">Native Plant Nursery</h2>
+            <p>Propagating indigenous species for restoration, edible landscapes, and habitat corridors. Current focus: Oregon grape, red elderberry, salal, camas, and various riparian species.</p>
+            <p>Plants will be available to local land stewards, restoration projects, and community gardeners. A modest sliding-scale model to keep it accessible.</p>
+            <div class="badge badge-soft mt-2">Early stage</div>
+          </div>
+        </div>
+
+        <div class="card bg-primary text-primary-content shadow-md">
+          <div class="card-body">
+            <h2 class="card-title">Collaborative Workspace</h2>
+            <p>A working space for agritech, dweb, and solarpunk projects — with good light, solid internet, and access to the land. Designed for small teams and solo practitioners who want to work somewhere that isn't a city.</p>
+            <p>We're figuring out the model: residencies, memberships, or project-based hosting. Reach out if you have ideas.</p>
+            <div class="badge badge-soft mt-2">Planning</div>
+          </div>
+        </div>
+
+        <div class="card bg-neutral text-neutral-content shadow-md">
+          <div class="card-body">
+            <h2 class="card-title">Open Proposal Board</h2>
+            <p>An online space for proposing initiatives, sharing knowledge, and coordinating with others interested in the farm's direction. We want decisions to be legible and participatory — especially for those who contribute time or resources.</p>
+            <p>Currently a simple shared document. Building toward something more structured as the community grows.</p>
+            <div class="badge badge-soft mt-2">Coming soon</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  {{ partial "footer.html" . }}
+</div>
+{{ end }}

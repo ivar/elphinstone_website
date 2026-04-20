@@ -1,0 +1,20 @@
+{{ define "main" }}
+<div class="min-h-screen flex flex-col">
+  <div class="bg-linear-to-b from-white to-[#e3e6e7]">
+    <div class="flex items-center justify-center pt-6">
+      <a href="/"><img class="max-w-64" src="/images/logo.png" alt="Elphinstone Farm" /></a>
+    </div>
+
+    {{ partial "nav.html" . }}
+
+    <div class="max-w-3xl mx-auto px-6 py-10">
+      <h1 class="text-4xl font-bold text-primary mb-8">{{ .Title }}</h1>
+      <div class="page-content">
+        {{ .Content }}
+      </div>
+    </div>
+  </div>
+
+  {{ partial "footer.html" . }}
+</div>
+{{ end }}

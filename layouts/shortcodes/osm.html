@@ -1,0 +1,41 @@
+{{ $lat  := .Get "lat" }}
+{{ $lon  := .Get "lon" }}
+{{ $zoom := .Get "zoom" | default "14" }}
+
+{{/* Offsets per zoom level to build the bbox (controls viewport extent) */}}
+{{ $offsets := dict
+    "10" (dict "dlat" 0.200 "dlon" 0.400)
+    "11" (dict "dlat" 0.100 "dlon" 0.200)
+    "12" (dict "dlat" 0.050 "dlon" 0.100)
+    "13" (dict "dlat" 0.025 "dlon" 0.050)
+    "14" (dict "dlat" 0.012 "dlon" 0.025)
+    "15" (dict "dlat" 0.006 "dlon" 0.012)
+    "16" (dict "dlat" 0.003 "dlon" 0.006)
+}}
+{{ $o    := index $offsets $zoom | default (dict "dlat" 0.025 "dlon" 0.050) }}
+{{ $latf := float $lat }}
+{{ $lonf := float $lon }}
+{{ $bbox := printf "%.5f,%.5f,%.5f,%.5f"
+    (sub $lonf (index $o "dlon"))
+    (sub $latf (index $o "dlat"))
+    (add $lonf (index $o "dlon"))
+    (add $latf (index $o "dlat"))
+}}
+
+{{ $src  := printf "https://www.openstreetmap.org/export/embed.html?bbox=%s&layer=mapnik&marker=%s,%s" $bbox $lat $lon }}
+{{ $link := printf "https://www.openstreetmap.org/?mlat=%s&mlon=%s#map=%s/%s/%s" $lat $lon $zoom $lat $lon }}
+
+<figure class="osm-embed not-prose">
+  <iframe
+    src="{{ $src }}"
+    width="100%"
+    height="360"
+    style="border:0"
+    loading="lazy"
+    referrerpolicy="no-referrer"
+    title="Map showing farm location"
+  ></iframe>
+  <figcaption>
+    <a href="{{ $link }}" target="_blank" rel="noopener noreferrer">View larger map on OpenStreetMap ↗</a>
+  </figcaption>
+</figure>
