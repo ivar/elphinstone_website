@@ -1,5 +1,7 @@
 ---
 title: "About Us"
+date: 2026-04-15
+description: "Who we are, what we're building, and the values behind Elphinstone Farm on the Sunshine Coast of BC."
 ---
 
 Elphinstone Farm is an aspiring small-scale {{< term "agritech" >}}Technology applied to agriculture and food systems — from soil sensors and crop planning software to distributed growing networks.{{< /term >}} and {{< term "solarpunk" >}}A vision of the future centred on ecological sustainability, community resilience, and the thoughtful use of technology in harmony with the natural world.{{< /term >}} venture on the Sunshine Coast of British Columbia, rooted in the {{< term "Salish Sea bioregion" >}}The coastal and island ecosystem of southwestern BC and northwestern Washington, defined by its shared watershed and ecology rather than political borders.{{< /term >}}. We're building something that sits at the intersection of land stewardship, appropriate technology, and community.

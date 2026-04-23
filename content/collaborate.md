@@ -1,5 +1,7 @@
 ---
 title: "Collaborate"
+date: 2026-04-15
+description: "Ways to get involved with Elphinstone Farm — land and growing, agritech, research, workshops, and more."
 ---
 
 We're in an early, generative phase — which means there's room for the right kinds of involvement. We're not looking for volunteers to do weeding, and we're not running structured programs yet. What we are open to is people and projects that bring genuine overlap with what we're building.

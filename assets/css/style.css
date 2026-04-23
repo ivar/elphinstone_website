@@ -2,9 +2,25 @@
 @source inline("bg-primary text-primary-content bg-secondary text-secondary-content bg-accent text-accent-content bg-neutral text-neutral-content");
 @plugin "daisyui";
 
+@font-face {
+  font-family: "Fraunces Variable";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url(/fonts/fraunces-latin-wght-normal.woff2) format("woff2-variations");
+}
+
+@font-face {
+  font-family: "Nunito Variable";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 200 1000;
+  src: url(/fonts/nunito-latin-wght-normal.woff2) format("woff2-variations");
+}
+
 @theme {
-  --font-sans: "Nunito", sans-serif;
-  --font-serif: "Fraunces", serif;
+  --font-sans: "Nunito Variable", sans-serif;
+  --font-serif: "Fraunces Variable", serif;
 }
 
 html {

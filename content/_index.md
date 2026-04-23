@@ -1,5 +1,6 @@
 ---
 title: "Elphinstone Farm"
+date: 2026-04-15
 cards:
   - title: "The Land"
     icon: "plant"

@@ -1,0 +1,11 @@
+<div class="card bg-{{ .color }} text-{{ .color }}-content shadow-md">
+  <div class="card-body">
+    <h2 class="card-title">
+      {{ with .icon }}{{ partial "icon.html" . }}{{ end }}
+      {{ .title }}
+    </h2>
+    {{ range .paragraphs }}<p>{{ . }}</p>{{ end }}
+    {{ with .quote }}<p class="italic">"{{ . }}"</p>{{ end }}
+    {{ with .status }}<div class="badge badge-soft mt-2">{{ . }}</div>{{ end }}
+  </div>
+</div>

@@ -2,11 +2,7 @@
 <div id="app" class="w-full">
   <div class="min-h-screen flex flex-col">
     <div class="bg-linear-to-b from-white to-[#e3e6e7]">
-      <div class="flex items-center justify-center pt-6">
-        <img class="max-w-96" src="/images/logo.png" alt="{{ .Site.Title }}" />
-      </div>
-
-      {{ partial "nav.html" . }}
+      {{ partial "page-header.html" . }}
 
       <div class="hero py-8">
         <div class="hero-content text-center">
@@ -19,16 +15,7 @@
 
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 px-6 pb-12 max-w-6xl mx-auto">
         {{ range .Params.cards }}
-        <div class="card bg-{{ .color }} text-{{ .color }}-content shadow-md">
-          <div class="card-body">
-            <h2 class="card-title">
-              {{ partial "icon.html" .icon }}
-              {{ .title }}
-            </h2>
-            {{ range .paragraphs }}<p>{{ . }}</p>{{ end }}
-            {{ with .quote }}<p class="italic">"{{ . }}"</p>{{ end }}
-          </div>
-        </div>
+          {{ partial "card.html" . }}
         {{ end }}
       </div>
     </div>

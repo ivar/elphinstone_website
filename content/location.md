@@ -1,5 +1,7 @@
 ---
 title: "Getting Here"
+date: 2026-04-20
+description: "How to reach Elphinstone Farm on the Sunshine Coast of BC — ferry from Horseshoe Bay to Langdale, then a short drive."
 map:
   lat: "49.44849"
   lon: "-123.48953"

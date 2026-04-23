@@ -1,0 +1,10 @@
+{{ if .IsHome }}
+<div class="flex items-center justify-center pt-6">
+  <img class="max-w-96" src="/images/logo.png" alt="{{ .Site.Title }}" />
+</div>
+{{ else }}
+<div class="flex items-center justify-center pt-6">
+  <a href="/"><img class="max-w-64" src="/images/logo.png" alt="{{ .Site.Title }}" /></a>
+</div>
+{{ end }}
+{{ partial "nav.html" . }}

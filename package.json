@@ -7,6 +7,8 @@
     "build": "tailwindcss -i ./assets/css/style.css -o ./static/css/style.css && hugo"
   },
   "dependencies": {
+    "@fontsource-variable/fraunces": "^5.2.9",
+    "@fontsource-variable/nunito": "^5.2.7",
     "@tailwindcss/cli": "^4.1.18",
     "concurrently": "^9.1.2",
     "daisyui": "^5.5.18",

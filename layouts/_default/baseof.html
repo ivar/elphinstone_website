@@ -4,7 +4,13 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/images/logo.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{{ .Site.Title }}</title>
+    <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} — {{ .Site.Title }}{{ end }}</title>
+    <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}" />
+    <link rel="canonical" href="{{ .Permalink }}" />
+    <meta property="og:title" content="{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} — {{ .Site.Title }}{{ end }}" />
+    <meta property="og:description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}" />
+    <meta property="og:type" content="{{ if .IsHome }}website{{ else }}article{{ end }}" />
+    <meta property="og:url" content="{{ .Permalink }}" />
     <link rel="stylesheet" href="/css/style.css" />
   </head>
   <body class="min-h-screen w-full m-0 p-0">

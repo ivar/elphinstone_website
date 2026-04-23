@@ -9,7 +9,12 @@
       "Bash(hugo *)",
       "Bash(npx --version)",
       "Bash(npm run *)",
-      "Bash(npm install *)"
+      "Bash(npm install *)",
+      "WebFetch(domain:nominatim.openstreetmap.org)",
+      "Bash(head *)",
+      "Bash(mkdir -p /home/ivar/projects/elphinstone_website/static/fonts)",
+      "Bash(cp node_modules/@fontsource-variable/fraunces/files/fraunces-latin-wght-normal.woff2 static/fonts/)",
+      "Bash(cp node_modules/@fontsource-variable/nunito/files/nunito-latin-wght-normal.woff2 static/fonts/)"
     ]
   }
 }
