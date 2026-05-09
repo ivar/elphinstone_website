@@ -33,6 +33,6 @@ disableKinds = ["taxonomy", "term"]
   weight = 4
 
 [[menus.main]]
-  name   = "Location"
-  url    = "/location/"
+  name   = "Getting Here"
+  url    = "/getting-here/"
   weight = 5
