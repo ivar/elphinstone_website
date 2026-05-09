@@ -1,6 +1,6 @@
 baseURL = "https://elphinstone.farm/"
 languageCode = "en-us"
-title = "elphinstone.farm"
+title = "Elphinstone Farm (and regenerative solarpunk lab)"
 disableKinds = ["taxonomy", "term"]
 
 [params]
