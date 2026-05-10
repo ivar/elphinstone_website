@@ -26,5 +26,5 @@ static/css
 *.sw?
 
 # claude detritus
-.claude/*
+.claude/
 
