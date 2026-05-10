@@ -24,3 +24,7 @@ static/css
 *.njsproj
 *.sln
 *.sw?
+
+# claude detritus
+.claude/*
+

@@ -141,6 +141,18 @@ h1, h2, h3, h4, h5, h6, .card-title {
     font-weight: 700;
     color: oklch(45% 0.08 215);
   }
+
+}
+
+.page-content a {
+  color: oklch(52% 0.18 155);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 150ms;
+}
+
+.page-content a:hover {
+  color: oklch(40% 0.20 155);
 }
 
 @plugin "daisyui/theme" {

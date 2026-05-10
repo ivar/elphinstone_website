@@ -15,7 +15,7 @@ Elphinstone Farm is at **1900 Port Mellon Highway, Gibsons, BC** - located just 
 
 ## From Vancouver to Langdale
 
-To get to the Sunshine Coast from the Vancouver area you must cross Howe Sound.  The most common route is the BC Ferries service from Horseshoe Bay (West Vancouver) to Langdale. The crossing takes about 40 minutes and runs frequently throughout the day - [HSB-LNG schedule](https://www.bcferries.com/routes-fares/schedules/seasonal/HSB-LNG).
+To get to the Sunshine Coast from the Vancouver area you must cross Howe Sound.  The most common route is the BC Ferries service from Horseshoe Bay (West Vancouver) to Langdale. The crossing takes about 40 minutes and runs frequently throughout the day - [Horseshoe Bay to Langdale schedule](https://www.bcferries.com/routes-fares/schedules/seasonal/HSB-LNG).
 Do consider the [return schedule from Langdale to Horseshoe Bay](https://www.bcferries.com/routes-fares/schedules/seasonal/LNG-HSB). Note that the last ferry from the coast to the mainland departs at 9:35PM.  
 BC Ferries reservations are recommended on weekends and holidays.
 
