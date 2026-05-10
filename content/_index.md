@@ -22,7 +22,7 @@ cards:
     paragraphs:
       - "Small-scale progressive venture workplace — agritech solarpunk labs."
       - "dweb-affiliated projects and decentralized software tools."
-      - "If this vibes with you, please express interest as we develop foundational resources! Compelling proposals welcome."
+      - "If this vibes with you, please <a href=\"/collaborate/\">express interest</a> as we develop foundational resources! Compelling proposals welcome."
 ---
 
 An aspiring small-scale {{< term "agritech" >}}Technology applied to agriculture and food systems — from soil sensors and crop planning software to distributed growing networks.{{< /term >}} {{< term "solarpunk" >}}A vision of the future centred on ecological sustainability, community resilience, and the thoughtful use of technology in harmony with the natural world.{{< /term >}} venture on the Sunshine Coast, BC. 

@@ -144,6 +144,17 @@ h1, h2, h3, h4, h5, h6, .card-title {
 
 }
 
+.card-body a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  opacity: 0.85;
+  transition: opacity 150ms;
+}
+
+.card-body a:hover {
+  opacity: 1;
+}
+
 .page-content a {
   color: oklch(52% 0.18 155);
   text-decoration: underline;

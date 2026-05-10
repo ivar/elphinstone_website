@@ -4,7 +4,7 @@ date: 2026-04-15
 description: "Ways to get involved with Elphinstone Farm — land and growing, agritech, research, workshops, and more."
 ---
 
-We're in an early, generative phase — which means there's room for the right kinds of involvement. We're not looking for volunteers to do weeding, and we're not running structured programs yet. What we are open to is people and projects that bring genuine overlap with what we're building.
+We're in an early, generative phase — which means there's room for the right kinds of involvement. While we could certainly use volunteers to do weeding, we're hoping to find collaborators who share the same general values as us (this website is a good indicator) to help develop this place into an exciting community asset.  We're not running structured programs yet. What we are open to is people and projects that bring genuine overlap with what we're building.
 
 ## Ways to Get Involved
 
@@ -18,14 +18,10 @@ We're interested in decentralized tools, {{< term "local-first software" >}}Soft
 We want to document what we're doing rigorously — soil data, plant performance, microclimate observations. If you're a researcher or student looking for a site, or someone who's good at building knowledge systems, there may be a fit.
 
 **Workshops & programming**
-We're open to hosting or co-producing learning experiences that fit the farm's context: agroforestry, ecology, food systems, relevant technology. We're not a venue for hire, but we're interested in programming that builds something lasting.
-
-## What We're Looking For
-
-Collaborations that work tend to have a few things in common: clear purpose, mutual benefit, and people who communicate well. We're a small operation, so we can't carry projects that need a lot of hand-holding — but we're very willing to invest in things that feel right.
+We're open to hosting or co-producing learning experiences that fit the farm's context: agroforestry, ecology, food systems, relevant technology. We're interested in programming that builds something lasting.
 
 ## How to Reach Out
 
 Send us a note with a bit of context about who you are and what you have in mind. No formal proposals required — just enough that we can have a real conversation.
 
-Email is the best way to get in touch: **hello@elphinstone.farm**
+Email is the best way to get in touch: **info@elphinstone.farm**

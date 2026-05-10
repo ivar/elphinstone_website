@@ -4,7 +4,7 @@
       {{ with .icon }}{{ partial "icon.html" . }}{{ end }}
       {{ .title }}
     </h2>
-    {{ range .paragraphs }}<p>{{ . }}</p>{{ end }}
+    {{ range .paragraphs }}<p>{{ . | safeHTML }}</p>{{ end }}
     {{ with .quote }}<p class="italic">"{{ . }}"</p>{{ end }}
     {{ with .status }}<div class="badge badge-soft mt-2">{{ . }}</div>{{ end }}
   </div>
