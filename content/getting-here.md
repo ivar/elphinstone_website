@@ -19,6 +19,10 @@ To get to the Sunshine Coast from the Vancouver area you must cross Howe Sound. 
 Do consider the [return schedule from Langdale to Horseshoe Bay](https://www.bcferries.com/routes-fares/schedules/seasonal/LNG-HSB). Note that the last ferry from the coast to the mainland departs at 9:35PM.  
 BC Ferries reservations are recommended on weekends and holidays.
 
+### Parking at Horseshoe Bay
+If you don't mind a 15 minute walk, the best place to park in Horseshoe Bay is at the [Lions' Club Overflow Parking Lot](https://e-clubhouse.org/sites/ambleside_tiddlycove/page-6.php)
+
+### Water Taxi ($$$) 
 Additional options include chartering a water taxi from [Sunshine Coast Water Taxi](https://sunshinecoastwatertaxi.ca/rates/),  [Cormorant Water Taxi](https://www.cormorantwatertaxi.com/), or [Mercury Transport](https://mercurytransport.ca). 
 
 
