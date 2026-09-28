@@ -1,0 +1,20 @@
+{{- /*
+  One progress photo. Expects dict "page" (the project page) and "photo" ({src, alt, caption}).
+  src is a file stored next to the project's index.md. Images are resized by Hugo;
+  the thumbnail links to the full-size original.
+*/ -}}
+{{ $p := .photo }}
+{{ with .page.Resources.Get $p.src }}
+  {{ $thumb := .Fit "1000x1000" }}
+  <figure>
+    <a href="{{ .RelPermalink }}" target="_blank" rel="noopener">
+      <img src="{{ $thumb.RelPermalink }}" width="{{ $thumb.Width }}" height="{{ $thumb.Height }}" alt="{{ $p.alt }}" loading="lazy" class="w-full rounded-box shadow-sm hover:shadow-md transition" />
+    </a>
+    {{ with $p.caption }}<figcaption class="text-sm opacity-70 mt-1">{{ . }}</figcaption>{{ end }}
+  </figure>
+{{ else }}
+  {{ warnf "Project photo %q not found in %s" $p.src .page.File.Dir }}
+  {{ if hugo.IsServer }}
+  <div class="rounded-box border-2 border-dashed border-base-300 bg-base-200 p-6 text-sm text-center">Missing photo: <code>{{ $p.src }}</code><br />{{ $p.alt }}</div>
+  {{ end }}
+{{ end }}

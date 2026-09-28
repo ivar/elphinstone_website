@@ -1,0 +1,20 @@
+{{ define "main" }}
+<div class="min-h-screen flex flex-col">
+  <div class="bg-linear-to-b from-white to-[#e3e6e7] flex-1">
+    {{ partial "page-header.html" . }}
+
+    <div class="max-w-6xl mx-auto px-6 py-10">
+      <h1 class="text-4xl font-bold text-primary mb-4 text-center">{{ .Title }}</h1>
+      <div class="text-center text-lg mb-10 max-w-2xl mx-auto">{{ .Content }}</div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12">
+        {{ range .Pages.ByWeight }}
+          {{ partial "project-card.html" . }}
+        {{ end }}
+      </div>
+    </div>
+  </div>
+
+  {{ partial "footer.html" . }}
+</div>
+{{ end }}

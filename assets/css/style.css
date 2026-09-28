@@ -1,5 +1,7 @@
 @import "tailwindcss";
 @source inline("bg-primary text-primary-content bg-secondary text-secondary-content bg-accent text-accent-content bg-neutral text-neutral-content");
+/* Project pages pick these by their `color` front matter */
+@source inline("badge-{primary,secondary,accent,neutral} text-{primary,secondary,accent,neutral}");
 @plugin "daisyui";
 
 @font-face {
