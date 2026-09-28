@@ -1,0 +1,21 @@
+{{- /* Summary card for one project page, used on /projects/. */ -}}
+{{ $color := .Params.color | default "primary" }}
+{{ $updates := sort (.Params.updates | default slice) "date" "desc" }}
+<a href="{{ .RelPermalink }}" class="card bg-{{ $color }} text-{{ $color }}-content shadow-md transition hover:shadow-xl hover:-translate-y-0.5 overflow-hidden">
+  {{ with .Params.cover }}{{ with $.Resources.Get . }}
+    {{ $img := .Fill "900x420 Center" }}
+    <figure><img src="{{ $img.RelPermalink }}" width="{{ $img.Width }}" height="{{ $img.Height }}" alt="{{ $.Params.coverAlt | default $.Title }}" loading="lazy" class="w-full object-cover" /></figure>
+  {{ end }}{{ end }}
+  <div class="card-body">
+    <h2 class="card-title">
+      {{ with .Params.icon }}{{ partial "icon.html" . }}{{ end }}
+      {{ .Title }}
+    </h2>
+    <p>{{ .Params.summary }}</p>
+    <div class="flex flex-wrap items-center gap-2 mt-2">
+      {{ with .Params.status }}<span class="badge badge-soft">{{ . }}</span>{{ end }}
+      {{ with index $updates 0 }}<span class="text-sm opacity-80">Latest update: {{ (time .date).Format "January 2006" }}</span>{{ end }}
+    </div>
+    <span class="mt-2 font-semibold underline underline-offset-4">Follow the progress →</span>
+  </div>
+</a>
