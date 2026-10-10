@@ -7,7 +7,7 @@
       <div class="hero py-8">
         <div class="hero-content text-center">
           <div class="max-w-2xl">
-            <h1 class="text-4xl font-bold text-primary">{{ .Title }}</h1>
+            <h1 class="text-3xl sm:text-4xl font-bold text-primary wrap-break-word">{{ .Title }}</h1>
             <div class="py-4 text-lg">{{ .Content }}</div>
           </div>
         </div>
@@ -17,6 +17,10 @@
         {{ range .Params.cards }}
           {{ partial "card.html" . }}
         {{ end }}
+      </div>
+
+      <div class="text-center pb-12 px-6">
+        <a href="/projects/" class="btn btn-primary">See our projects and their progress</a>
       </div>
     </div>
 

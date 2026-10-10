@@ -1,20 +1,112 @@
 {{ define "main" }}
+{{ $color := .Params.color | default "primary" }}
+{{ $updates := sort (.Params.updates | default slice) "date" "desc" }}
 <div class="min-h-screen flex flex-col">
   <div class="bg-linear-to-b from-white to-[#e3e6e7] flex-1">
     {{ partial "page-header.html" . }}
 
-    <div class="max-w-6xl mx-auto px-6 py-10">
-      <h1 class="text-4xl font-bold text-primary mb-4 text-center">{{ .Title }}</h1>
-      <p class="text-center text-lg mb-10 max-w-2xl mx-auto">{{ .Params.description }}</p>
+    <article class="max-w-6xl mx-auto px-6 py-10">
+      <a href="/projects/" class="text-sm font-semibold text-primary/70 hover:text-primary">← All projects</a>
 
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12">
-        {{ range .Params.projects }}
-          {{ partial "card.html" . }}
-        {{ end }}
+      <header class="text-center max-w-3xl mx-auto mt-4 mb-8">
+        {{ with .Params.status }}<span class="badge badge-{{ $color }} mb-3">{{ . }}</span>{{ end }}
+        <h1 class="text-3xl sm:text-4xl font-bold text-primary mb-4 wrap-break-word">{{ .Title }}</h1>
+        <p class="text-lg">{{ .Params.summary }}</p>
+      </header>
+
+      {{ with .Params.cover }}{{ with $.Resources.Get . }}
+        {{ $img := .Fill "1600x640 Center" }}
+        <figure class="mb-10">
+          <img src="{{ $img.RelPermalink }}" width="{{ $img.Width }}" height="{{ $img.Height }}" alt="{{ $.Params.coverAlt | default $.Title }}" class="w-full rounded-box shadow-md" />
+        </figure>
+      {{ end }}{{ end }}
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-10 mb-12">
+
+        {{/* Sidebar comes first in the markup so "why" leads on phones. */}}
+        <aside class="flex flex-col gap-6 lg:col-start-3 lg:row-start-1">
+          {{ with .Params.intention }}
+          <div class="card bg-{{ $color }} text-{{ $color }}-content shadow-md">
+            <div class="card-body">
+              <h2 class="card-title">{{ with $.Params.icon }}{{ partial "icon.html" . }}{{ end }} Why we're doing this</h2>
+              {{ range . }}<p>{{ . | safeHTML }}</p>{{ end }}
+            </div>
+          </div>
+          {{ end }}
+
+          <div class="card bg-base-100 shadow-sm">
+            <div class="card-body gap-3">
+              <h2 class="card-title text-primary text-lg">At a glance</h2>
+              <dl class="grid grid-cols-[auto_1fr] gap-x-4 gap-y-2 text-sm">
+                {{ with .Params.status }}<dt class="font-semibold">Stage</dt><dd>{{ . }}</dd>{{ end }}
+                {{ with .Params.started }}<dt class="font-semibold">Started</dt><dd>{{ (time .).Format "January 2006" }}</dd>{{ end }}
+                <dt class="font-semibold">Updates</dt><dd>{{ len $updates }}</dd>
+                {{ with index $updates 0 }}<dt class="font-semibold">Latest</dt><dd>{{ (time .date).Format "January 2, 2006" }}</dd>{{ end }}
+              </dl>
+            </div>
+          </div>
+
+          <div class="card bg-base-200 shadow-sm">
+            <div class="card-body gap-3">
+              <h2 class="card-title text-primary text-lg">Get involved</h2>
+              <p class="text-sm">{{ .Params.involve | default "Want to help, learn alongside us, or propose something? We'd love to hear from you." }}</p>
+              <a href="/collaborate/" class="btn btn-primary btn-sm self-start">Express interest</a>
+            </div>
+          </div>
+        </aside>
+
+        <div class="lg:col-span-2 lg:col-start-1 lg:row-start-1 flex flex-col gap-10">
+          {{ with .Content }}
+          <section>
+            <h2 class="text-2xl font-bold text-primary mb-2">{{ $.Params.learnTitle | default "The idea behind it" }}</h2>
+            <div class="page-content">{{ . }}</div>
+          </section>
+          {{ end }}
+
+          <section id="progress">
+            <h2 class="text-2xl font-bold text-primary mb-6">Progress</h2>
+            {{ if $updates }}
+              <ul class="timeline timeline-vertical timeline-compact timeline-snap-icon">
+                {{ range $i, $u := $updates }}
+                <li>
+                  {{ if $i }}<hr class="bg-{{ $color }}" />{{ end }}
+                  <div class="timeline-middle text-{{ $color }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5" aria-hidden="true"><circle cx="10" cy="10" r="7" /></svg>
+                  </div>
+                  <div class="timeline-end mb-10 w-full">
+                    <time datetime="{{ (time $u.date).Format "2006-01-02" }}" class="text-sm font-semibold opacity-70">{{ (time $u.date).Format "January 2, 2006" }}</time>
+                    <h3 class="text-xl font-bold text-primary mt-1 mb-2">{{ $u.title }}</h3>
+                    {{ with $u.text }}<div class="page-content">{{ . | $.Page.RenderString }}</div>{{ end }}
+                    {{ with $u.photos }}
+                      <div class="grid gap-3 {{ if gt (len .) 1 }}sm:grid-cols-2{{ end }} mt-3">
+                        {{ range . }}{{ partial "project-photo.html" (dict "page" $.Page "photo" .) }}{{ end }}
+                      </div>
+                    {{ end }}
+                    {{ with $u.why }}
+                      <div class="mt-4 rounded-box bg-base-200 px-5 py-4 text-sm leading-relaxed">
+                        <span class="block text-xs font-bold uppercase tracking-wider text-primary mb-1">Why</span>
+                        {{ . | $.Page.RenderString }}
+                      </div>
+                    {{ end }}
+                  </div>
+                  {{ if lt (add $i 1) (len $updates) }}<hr class="bg-{{ $color }}" />{{ end }}
+                </li>
+                {{ end }}
+              </ul>
+            {{ else }}
+              <p class="rounded-box bg-base-200 px-5 py-4">The first progress photos are on their way. <a href="#newsletter" class="underline underline-offset-4">Subscribe to the newsletter</a> to hear when they're posted.</p>
+            {{ end }}
+          </section>
+        </div>
       </div>
-    </div>
+
+      <nav class="flex flex-col sm:flex-row justify-between gap-4 border-t border-base-300 pt-6" aria-label="More projects">
+        {{ with .NextInSection }}<a href="{{ .RelPermalink }}" class="text-primary/80 hover:text-primary font-semibold">← {{ .Title }}</a>{{ else }}<span></span>{{ end }}
+        {{ with .PrevInSection }}<a href="{{ .RelPermalink }}" class="text-primary/80 hover:text-primary font-semibold sm:text-right">{{ .Title }} →</a>{{ end }}
+      </nav>
+    </article>
   </div>
 
-  {{ partial "footer.html" . }}
+  <div id="newsletter">{{ partial "footer.html" . }}</div>
 </div>
 {{ end }}
