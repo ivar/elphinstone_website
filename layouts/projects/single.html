@@ -10,7 +10,7 @@
 
       <header class="text-center max-w-3xl mx-auto mt-4 mb-8">
         {{ with .Params.status }}<span class="badge badge-{{ $color }} mb-3">{{ . }}</span>{{ end }}
-        <h1 class="text-4xl font-bold text-primary mb-4">{{ .Title }}</h1>
+        <h1 class="text-3xl sm:text-4xl font-bold text-primary mb-4 wrap-break-word">{{ .Title }}</h1>
         <p class="text-lg">{{ .Params.summary }}</p>
       </header>
 

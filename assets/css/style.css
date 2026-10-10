@@ -78,6 +78,22 @@ h1, h2, h3, h4, h5, h6, .card-title {
   display: block;
 }
 
+/* On narrow screens an anchored popover runs off the edge; show it as a bottom sheet instead. */
+@media (max-width: 40rem) {
+  .term-popover {
+    position: fixed;
+    left: 1rem;
+    right: 1rem;
+    bottom: 1rem;
+    top: auto;
+    transform: none;
+    width: auto;
+    max-width: none;
+    font-size: 0.9rem;
+    padding: 0.875rem 1rem;
+  }
+}
+
 @media (hover: hover) {
   .term-def:hover .term-popover {
     display: block;
@@ -99,6 +115,11 @@ h1, h2, h3, h4, h5, h6, .card-title {
     font-size: 0.8rem;
     color: oklch(from var(--color-base-content) l c h / 0.6);
     text-align: right;
+
+    & a {
+      display: inline-block;
+      padding: 0.5rem 0;
+    }
   }
 }
 
