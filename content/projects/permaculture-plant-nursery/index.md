@@ -1,19 +1,17 @@
 ---
-title: "Native Plant Nursery"
-date: 2026-04-15
+title: "Permaculture Plant Nursery"
+date: 2026-10-10
 weight: 2
 color: "accent"
 icon: "plant"
 status: "Early stage"
-summary: "Propagating indigenous species for restoration, edible landscapes, and habitat corridors."
+summary: "Propagating indigenous and high utility species for restoration, edible landscapes, and habitat corridors."
 # cover: "cover.jpg"
 # coverAlt: ""
 intention:
-  - "Current focus: Oregon grape, red elderberry, salal, camas, and various riparian species."
-  - "Plants will be available to local land stewards, restoration projects, and community gardeners. A modest sliding-scale model to keep it accessible."
-  - "Help us grow tastier Oregon grapes!"
-learnTitle: "Why native plants"
-involve: "Looking for native plants for your land or a restoration project? Let us know what you need."
+  - "Current focus: starting Oregon grape selection"
+learnTitle: "Why a nursery?"
+involve: "Looking for enthusiasitc gardeners and plant breeders to help develop our nursery."
 # updates: see the example format in syntropic-agroforestry/index.md
 updates: []
 ---

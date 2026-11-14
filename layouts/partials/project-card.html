@@ -2,8 +2,8 @@
 {{ $color := .Params.color | default "primary" }}
 {{ $updates := sort (.Params.updates | default slice) "date" "desc" }}
 <a href="{{ .RelPermalink }}" class="card bg-{{ $color }} text-{{ $color }}-content shadow-md transition hover:shadow-xl hover:-translate-y-0.5 overflow-hidden">
-  {{ with .Params.cover }}{{ with $.Resources.Get . }}
-    {{ $img := .Fill "900x420 Center" }}
+  {{ with .Params.cover }}{{ with partial "project-image.html" (dict "page" $ "src" .) }}
+    {{ $img := .image.Fill "900x420 Center" }}
     <figure><img src="{{ $img.RelPermalink }}" width="{{ $img.Width }}" height="{{ $img.Height }}" alt="{{ $.Params.coverAlt | default $.Title }}" loading="lazy" class="w-full object-cover" /></figure>
   {{ end }}{{ end }}
   <div class="card-body">
@@ -15,7 +15,8 @@
     <div class="flex flex-wrap items-center gap-2 mt-2">
       {{ with .Params.status }}<span class="badge badge-soft">{{ . }}</span>{{ end }}
       {{ with index $updates 0 }}<span class="text-sm opacity-80">Latest update: {{ (time .date).Format "January 2006" }}</span>{{ end }}
+      {{ if eq .Layout "species" }}{{ with site.Data.species }}<span class="text-sm opacity-80">{{ len .species }} species so far</span>{{ end }}{{ end }}
     </div>
-    <span class="mt-2 font-semibold underline underline-offset-4">Follow the progress →</span>
+    <span class="mt-2 font-semibold underline underline-offset-4">{{ if eq .Layout "species" }}See the list{{ else }}Follow the progress{{ end }} →</span>
   </div>
 </a>

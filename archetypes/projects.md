@@ -3,11 +3,16 @@ title: "{{ replace .File.ContentBaseName "-" " " | title }}"
 date: {{ .Date }}
 weight: 10
 color: "primary"      # primary (teal) | secondary (green) | accent (gold) | neutral (navy)
-icon: "plant"         # plant | book | people — see data/icons.yaml
+icon: "plant"         # plant | book | people | search — see data/icons.yaml
 status: "Planning"    # e.g. Planning, Early stage, In progress, Coming soon
 # started: 2026-01-01
 summary: "One sentence shown on the projects page and under the title."
-# cover: "cover.jpg"  # optional wide photo stored in this folder
+# location:           # optional marker on the projects map, in % from the left/top of the overhead photo;
+#   x: 50             # in `npm run dev`, click the photo on /projects/ to get these
+#   y: 50
+#   area: [[40, 40], [60, 40], [60, 60], [40, 60]]   # optional: corners of a highlighted, clickable patch
+#   label: "left"     # optional: put the label left of the marker
+# cover: "cover.jpg"  # optional wide photo, in this folder or in the media bucket under this project's folder name
 # coverAlt: "Describe the cover photo"
 intention:
   - "Why we're doing this — first paragraph."

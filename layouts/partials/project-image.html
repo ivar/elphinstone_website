@@ -1,0 +1,33 @@
+{{- /*
+  Finds a project image. Expects dict "page" (the project page) and "src" (a filename or full URL).
+  Looks for a file next to the project's index.md first, then in the media bucket at
+  <params.mediaBaseURL>/<project-folder>/<src>.
+  Returns dict "image" (resource to resize) and "original" (URL of the full-size file), or nothing.
+*/ -}}
+{{ $page := .page }}
+{{ $src := .src }}
+{{ $result := false }}
+{{ with $page.Resources.Get $src }}
+  {{ $result = dict "image" . "original" .RelPermalink }}
+{{ else }}
+  {{ $url := "" }}
+  {{ if findRE `^https?://` $src }}
+    {{ $url = $src }}
+  {{ else }}
+    {{ with site.Params.mediaBaseURL }}
+      {{ $url = printf "%s/%s/%s" (strings.TrimSuffix "/" .) $page.File.ContentBaseName $src }}
+    {{ end }}
+  {{ end }}
+  {{ with $url }}
+    {{ with try (resources.GetRemote .) }}
+      {{ with .Err }}
+        {{ warnf "Could not fetch %s: %s" $url . }}
+      {{ else with .Value }}
+        {{/* Publish resized versions under /media/<project-folder>/ instead of the site root. */}}
+        {{ $image := . | resources.Copy (printf "media/%s/%s" $page.File.ContentBaseName (path.Base $url)) }}
+        {{ $result = dict "image" $image "original" $url }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+{{ return $result }}

@@ -14,8 +14,8 @@
         <p class="text-lg">{{ .Params.summary }}</p>
       </header>
 
-      {{ with .Params.cover }}{{ with $.Resources.Get . }}
-        {{ $img := .Fill "1600x640 Center" }}
+      {{ with .Params.cover }}{{ with partial "project-image.html" (dict "page" $ "src" .) }}
+        {{ $img := .image.Fill "1600x640 Center" }}
         <figure class="mb-10">
           <img src="{{ $img.RelPermalink }}" width="{{ $img.Width }}" height="{{ $img.Height }}" alt="{{ $.Params.coverAlt | default $.Title }}" class="w-full rounded-box shadow-md" />
         </figure>
