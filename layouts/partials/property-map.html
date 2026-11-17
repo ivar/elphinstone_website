@@ -49,12 +49,12 @@
   {{ $outline = printf "%sZ" $outline }}
 {{ end }}
 
-<figure class="mb-10 max-w-3xl mx-auto">
+<figure class="mb-10 max-w-2xl mx-auto">
   <div id="property-map" class="relative rounded-box overflow-hidden shadow-md bg-secondary">
     {{ with $image }}
       {{ $small := .Resize "800x webp q75" }}
       {{ $large := .Resize "1600x webp q75" }}
-      <img src="{{ $large.RelPermalink }}" srcset="{{ $small.RelPermalink }} 800w, {{ $large.RelPermalink }} 1600w" sizes="(min-width: 48rem) 48rem, 100vw"
+      <img src="{{ $large.RelPermalink }}" srcset="{{ $small.RelPermalink }} 800w, {{ $large.RelPermalink }} 1600w" sizes="(min-width: 42rem) 42rem, 100vw"
            width="{{ $w }}" height="{{ $h }}" alt="Overhead view of Elphinstone Farm" class="block w-full h-auto" />
     {{ else }}
       <div style="{{ printf "aspect-ratio:%d/%d" $w $h | safeCSS }}"></div>
@@ -107,6 +107,7 @@
       <pre id="property-map-readout">Dev: click the photo to get a location for a project's front matter.
 Click around the edge of a patch to get an area for it.</pre>
       <button type="button" id="property-map-clear" class="btn btn-xs mt-1">Start a new area</button>
+      <button type="button" id="property-map-markers" class="btn btn-xs mt-1" aria-pressed="false">Hide markers</button>
     </div>
     <script>
       (() => {
@@ -116,6 +117,13 @@ Click around the edge of a patch to get an area for it.</pre>
         document.getElementById("property-map-clear").addEventListener("click", () => {
           points = [];
           out.textContent = "Cleared. Click the photo to start again.";
+        });
+        // Markers and labels can sit on top of the spot you want to click; this takes them out of the way.
+        document.getElementById("property-map-markers").addEventListener("click", (e) => {
+          const hide = e.currentTarget.getAttribute("aria-pressed") !== "true";
+          e.currentTarget.setAttribute("aria-pressed", hide);
+          e.currentTarget.textContent = hide ? "Show markers" : "Hide markers";
+          map.querySelectorAll(":scope > a").forEach((a) => (a.hidden = hide));
         });
         map.addEventListener("click", (e) => {
           // In dev, clicks on a highlighted area place a point instead of following the link.

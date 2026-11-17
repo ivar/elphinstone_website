@@ -1,7 +1,7 @@
 ---
 title: "Open Proposal Board"
 date: 2026-04-15
-weight: 10
+weight: 12
 color: "neutral"
 icon: "book"
 status: "Coming soon"

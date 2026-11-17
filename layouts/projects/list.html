@@ -9,11 +9,28 @@
 
       {{ partial "property-map.html" . }}
 
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12">
-        {{ range .Pages.ByWeight }}
-          {{ partial "project-card.html" . }}
-        {{ end }}
-      </div>
+      {{/* Projects with a `location` are on the map above; the rest get their own section. */}}
+      {{ $onMap := where .Pages.ByWeight "Params.location" "ne" nil }}
+      {{ $offMap := where .Pages.ByWeight "Params.location" "eq" nil }}
+
+      {{ with $onMap }}
+        <section class="mb-12" aria-labelledby="on-the-map">
+          <h2 id="on-the-map" class="text-2xl font-bold text-primary mb-4">On the map</h2>
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {{ range . }}{{ partial "project-card.html" . }}{{ end }}
+          </div>
+        </section>
+      {{ end }}
+
+      {{ with $offMap }}
+        <section class="mb-12" aria-labelledby="beyond-the-map">
+          <h2 id="beyond-the-map" class="text-2xl font-bold text-primary mb-1">Beyond the map</h2>
+          <p class="mb-4 opacity-80">Projects that span the whole farm, live online, or don't have a spot of their own yet.</p>
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {{ range . }}{{ partial "project-card.html" . }}{{ end }}
+          </div>
+        </section>
+      {{ end }}
     </div>
   </div>
 

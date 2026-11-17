@@ -1,7 +1,7 @@
 ---
 title: "Collaborative Workspace"
 date: 2026-04-15
-weight: 9
+weight: 11
 color: "primary"
 icon: "people"
 status: "Planning"

@@ -6,24 +6,31 @@ published at  <https://elphinstone.farm>
 
 ## Getting Started
 
+You need [Hugo](https://gohugo.io/installation/) (extended edition) and Node.js installed.
+
 ```bash
 npm install
 npm run dev
 ```
 
+`npm run dev` rebuilds the CSS as you edit and starts Hugo's local server; it prints the address to open.
+
 ## Build
 
 ```bash
 npm run build
-npm run preview  # preview the production build
 ```
+
+This refreshes the species list from iNaturalist, builds the CSS, and writes the finished site to `public/`.
 
 ## Tech Stack
 
-- [Vite](https://vite.dev/) — build tool
-- [Tailwind CSS v4](https://tailwindcss.com/) — utility-first CSS
+- [Hugo](https://gohugo.io/) — static site generator (templates in `layouts/`, pages in `content/`)
+- [Tailwind CSS v4](https://tailwindcss.com/) — utility-first CSS, built with the Tailwind CLI
 - [DaisyUI v5](https://daisyui.com/) — component library
-- [Fraunces](https://fonts.google.com/specimen/Fraunces) + [Nunito](https://fonts.google.com/specimen/Nunito) — typography
+- [Fraunces](https://fonts.google.com/specimen/Fraunces) + [Nunito](https://fonts.google.com/specimen/Nunito) — typography, self-hosted in `static/fonts/`
+- [Cloudflare](https://developers.cloudflare.com/workers/static-assets/) — hosts the built `public/` folder (`wrangler.jsonc`); project photos live in an R2 bucket
+- [iNaturalist](https://www.inaturalist.org/) — source of the species list, fetched at build time
 
 ## Projects
 

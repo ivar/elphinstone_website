@@ -11,7 +11,10 @@
     <meta property="og:description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}" />
     <meta property="og:type" content="{{ if .IsHome }}website{{ else }}article{{ end }}" />
     <meta property="og:url" content="{{ .Permalink }}" />
-    <link rel="stylesheet" href="/css/style.css" />
+    {{/* The ?v= changes whenever the stylesheet does, so browsers never show a page with an old cached copy. */}}
+    {{ $cssVersion := "" }}
+    {{ if fileExists "static/css/style.css" }}{{ $cssVersion = substr (md5 (readFile "static/css/style.css")) 0 8 }}{{ end }}
+    <link rel="stylesheet" href="/css/style.css{{ with $cssVersion }}?v={{ . }}{{ end }}" />
   </head>
   <body class="min-h-screen w-full m-0 p-0">
     {{- block "main" . }}{{- end }}

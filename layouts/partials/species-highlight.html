@@ -1,0 +1,35 @@
+{{- /*
+  Home page banner linking to the species list (/projects/species/), with the live count from
+  data/species.json and one photo from each of the first few groups.
+*/ -}}
+{{ $page := site.GetPage "/projects/species" }}
+{{ $data := site.Data.species }}
+{{ if and $page $data }}
+  {{/* One community-confirmed species with a photo per group, for variety. */}}
+  {{ $picks := slice }}
+  {{ range $group := $data.groups }}
+    {{ range first 1 (where (where (where $data.species "group" $group) "confirmed" true) "photo" "ne" nil) }}
+      {{ $picks = $picks | append . }}
+    {{ end }}
+  {{ end }}
+
+  <a href="{{ $page.RelPermalink }}" class="group flex flex-col sm:flex-row items-center gap-5 rounded-box bg-base-100 shadow-md px-6 py-5 max-w-3xl mx-auto transition hover:shadow-xl hover:-translate-y-0.5">
+    <div class="text-center sm:text-left flex-1">
+      <p class="font-serif text-2xl font-bold text-primary">{{ len $data.species }} species and counting</p>
+      <p class="mt-1">Every plant, fungus and animal recorded on the farm through iNaturalist, with photos.</p>
+      <span class="mt-2 inline-block font-semibold text-primary underline underline-offset-4">See who lives here →</span>
+    </div>
+    <div class="flex -space-x-3 shrink-0">
+      {{ range $s := first 4 $picks }}
+        {{ $url := .photo.url }}
+        {{ with try (resources.GetRemote $url) }}
+          {{ with .Value }}
+            {{/* Same file name and size as the species page, so no extra images are generated. */}}
+            {{ $thumb := (. | resources.Copy (printf "media/species/%d%s" (int $s.id) (path.Ext $url))).Fill "360x360 Center webp" }}
+            <img src="{{ $thumb.RelPermalink }}" width="{{ $thumb.Width }}" height="{{ $thumb.Height }}" alt="{{ $s.common_name | default $s.name }}" loading="lazy" class="size-12 sm:size-16 rounded-full object-cover ring-2 ring-base-100" />
+          {{ end }}
+        {{ end }}
+      {{ end }}
+    </div>
+  </a>
+{{ end }}
