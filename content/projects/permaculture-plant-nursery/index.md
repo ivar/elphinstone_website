@@ -3,7 +3,7 @@ title: "Permaculture Plant Nursery"
 date: 2026-10-10
 weight: 2
 color: "accent"
-icon: "plant"
+icon: "seedling"
 status: "Early stage"
 summary: "Propagating indigenous and high utility species for restoration, edible landscapes, and habitat corridors."
 # cover: "cover.jpg"

@@ -3,7 +3,7 @@ title: "Blueberry Farm"
 date: 2026-11-14
 weight: 3
 color: "neutral"
-icon: "plant"
+icon: "blueberry"
 # status: "In progress"    # e.g. Planning, Early stage, In progress
 # started: 2026-01-01
 summary: "Blueberries growing in the field beside the syntropic agroforestry rows."

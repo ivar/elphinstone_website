@@ -3,7 +3,7 @@ title: "Soil Building"
 date: 2026-11-16
 weight: 10
 color: "secondary"
-icon: "plant"
+icon: "soil"
 # status: "In progress"    # e.g. Planning, Early stage, In progress
 # started: 2026-01-01
 summary: "Building healthy, living soil across the farm."

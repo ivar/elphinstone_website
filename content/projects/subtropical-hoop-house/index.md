@@ -3,7 +3,7 @@ title: "Subtropical Hoop House"
 date: 2026-11-14
 weight: 5
 color: "accent"
-icon: "plant"
+icon: "palm-house"
 # status: "In progress"    # e.g. Planning, Early stage, In progress
 # started: 2026-01-01
 summary: "A hoop house for growing subtropical plants on the coast."

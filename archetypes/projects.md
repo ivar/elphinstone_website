@@ -3,7 +3,7 @@ title: "{{ replace .File.ContentBaseName "-" " " | title }}"
 date: {{ .Date }}
 weight: 10
 color: "primary"      # primary (teal) | secondary (green) | accent (gold) | neutral (navy)
-icon: "plant"         # plant | book | people | search — see data/icons.yaml
+icon: "plant"         # plant | seedling | agroforestry | fruit-tree | apple | blueberry | carrot | hoop-house | palm-house | wetland | soil | book | people | search (see data/icons.yaml)
 status: "Planning"    # e.g. Planning, Early stage, In progress, Coming soon
 # started: 2026-01-01
 summary: "One sentence shown on the projects page and under the title."

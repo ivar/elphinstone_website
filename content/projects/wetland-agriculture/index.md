@@ -3,7 +3,7 @@ title: "Wetland Agriculture"
 date: 2026-11-14
 weight: 8
 color: "primary"
-icon: "plant"
+icon: "wetland"
 # status: "In progress"    # e.g. Planning, Early stage, In progress
 # started: 2026-01-01
 summary: "Growing food in the wet ground on the east side of the farm."

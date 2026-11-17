@@ -3,7 +3,7 @@ title: "Mixed Fruit Orchard"
 date: 2026-11-14
 weight: 7
 color: "neutral"
-icon: "plant"
+icon: "fruit-tree"
 # status: "In progress"    # e.g. Planning, Early stage, In progress
 # started: 2026-01-01
 summary: "An orchard of mixed fruit trees."

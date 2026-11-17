@@ -3,7 +3,7 @@ title: "Syntropic Agroforestry Labs"
 date: 2026-04-15
 weight: 1
 color: "secondary"
-icon: "plant"
+icon: "agroforestry"
 status: "In progress"
 # started: 2026-03-01
 summary: "Designing and planting multi-strata food forests modelled on natural succession."

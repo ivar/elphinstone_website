@@ -3,7 +3,7 @@ title: "Market Garden Hoop House"
 date: 2026-11-14
 weight: 6
 color: "primary"
-icon: "plant"
+icon: "hoop-house"
 # status: "In progress"    # e.g. Planning, Early stage, In progress
 # started: 2026-01-01
 summary: "A hoop house that extends the growing season for the organic market garden."

@@ -3,7 +3,7 @@ title: "Organic Market Garden"
 date: 2026-11-14
 weight: 4
 color: "secondary"
-icon: "plant"
+icon: "carrot"
 # status: "In progress"    # e.g. Planning, Early stage, In progress
 # started: 2026-01-01
 summary: "Organic vegetables grown in the garden beds beside the greenhouses."
