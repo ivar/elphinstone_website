@@ -10,7 +10,7 @@ summary: "Designing and planting multi-strata food forests modelled on natural s
 # Marker and highlighted area on the projects map, in % from the left/top of the overhead photo.
 location:
   x: 41.8
-  y: 80.8
+  "y": 80.8
   area: [[26.9, 90.6], [46.3, 68.2], [56.9, 70.6], [37.2, 93.6]]
 # cover: "cover.jpg"          # a photo saved in this folder
 # coverAlt: "Describe the photo for people using screen readers"

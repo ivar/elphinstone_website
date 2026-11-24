@@ -10,7 +10,7 @@ summary: "An orchard of mixed fruit trees."
 # Marker and highlighted area on the projects map, in % from the left/top of the overhead photo.
 location:
   x: 26.0
-  y: 20.2
+  "y": 20.2
   label: "left"
   area: [[34.5, 27.2], [35.9, 21.9], [24.1, 17.4], [21.8, 20.5]]
 # cover: "cover.jpg"

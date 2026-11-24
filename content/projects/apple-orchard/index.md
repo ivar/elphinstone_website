@@ -10,7 +10,7 @@ summary: "An orchard of apple trees."
 # Marker and highlighted area on the projects map, in % from the left/top of the overhead photo.
 location:
   x: 25.6
-  y: 27.6
+  "y": 27.6
   label: "left"
   area: [[23.5, 25.5], [24.5, 29.3], [37.6, 33.9], [38.4, 31.6], [26.0, 26.7]]
 # cover: "cover.jpg"

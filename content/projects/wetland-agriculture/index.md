@@ -10,7 +10,7 @@ summary: "Growing food in the wet ground on the east side of the farm."
 # Marker and highlighted area on the projects map, in % from the left/top of the overhead photo.
 location:
   x: 77.9
-  y: 44.8
+  "y": 44.8
   label: "left"
   area: [[72.3, 33.6], [64.6, 51.5], [85.3, 57.6], [89.4, 36.6]]
 # cover: "cover.jpg"

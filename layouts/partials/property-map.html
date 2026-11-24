@@ -1,6 +1,7 @@
 {{- /*
   Overhead photo of the property with a marker for every project that has a `location`
-  (x, y as % from the left/top of the photo, optional label: "left") in its front matter.
+  (x, "y" as % from the left/top of the photo, optional label: "left") in its front matter.
+  Keep "y" quoted: bare, some YAML parsers read it as a boolean and the marker lands at the top.
   An optional `area` (a list of [x, y] corners, also in %) highlights the project's patch of
   ground and makes it clickable too.
   Expects the projects list page.
@@ -85,8 +86,10 @@
     {{ range $project := .Pages.ByWeight }}
       {{ with .Params.location }}
         {{ $color := $project.Params.color | default "primary" }}
+        {{/* Older Hugo versions read an unquoted `y:` key as the YAML boolean `true`. */}}
+        {{ $y := index . "y" | default (index . "true") | default 0 }}
         {{/* The marker circle is centred on the point; the label sits to its right (or left). */}}
-        <a href="{{ $project.RelPermalink }}" aria-label="{{ $project.Title }}" style="{{ printf "left:%.2f%%;top:%.2f%%" (float .x) (float .y) | safeCSS }}"
+        <a href="{{ $project.RelPermalink }}" aria-label="{{ $project.Title }}" style="{{ printf "left:%.2f%%;top:%.2f%%" (float .x) (float $y) | safeCSS }}"
            class="group absolute flex items-center gap-2 -translate-y-1/2 {{ if eq .label "left" }}flex-row-reverse -translate-x-[calc(100%-1rem)]{{ else }}-translate-x-4{{ end }}">
           <span class="grid place-items-center size-8 shrink-0 rounded-full bg-{{ $color }} text-{{ $color }}-content ring-2 ring-white shadow-lg transition group-hover:scale-110 group-focus-visible:scale-110">
             {{ partial "icon.html" ($project.Params.icon | default "plant") }}
@@ -139,7 +142,7 @@ Highlighted areas open their project; hide the markers (or hold Alt) to click po
           const x = (((e.clientX - box.left) / box.width) * 100).toFixed(1);
           const y = (((e.clientY - box.top) / box.height) * 100).toFixed(1);
           points.push(`[${x}, ${y}]`);
-          let text = `location:\n  x: ${x}\n  y: ${y}`;
+          let text = `location:\n  x: ${x}\n  "y": ${y}`;
           if (points.length >= 3) text += `\n  area: [${points.join(", ")}]`;
           out.textContent = text + "\n(copied to clipboard)";
           navigator.clipboard?.writeText(text);

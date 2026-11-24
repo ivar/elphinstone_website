@@ -10,7 +10,7 @@ summary: "Blueberries growing in the field beside the syntropic agroforestry row
 # Marker and highlighted area on the projects map, in % from the left/top of the overhead photo.
 location:
   x: 27.9
-  y: 77.4
+  "y": 77.4
   label: "left"
   area: [[22.7, 63.1], [45.4, 67.9], [25.7, 90.5], [17.9, 87.9]]
 # cover: "cover.jpg"

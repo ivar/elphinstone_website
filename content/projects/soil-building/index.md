@@ -9,7 +9,7 @@ icon: "soil"
 summary: "Building healthy, living soil across the farm."
 # location:           # optional marker on the projects map; without one the project is listed under "Beyond the map"
 #   x: 50
-#   y: 50
+#   "y": 50
 # cover: "cover.jpg"
 # coverAlt: "Describe the cover photo"
 # intention:

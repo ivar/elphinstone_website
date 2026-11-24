@@ -11,7 +11,7 @@ summary: "A hoop house for growing subtropical plants on the coast."
 # The marker sits just below the hoop house so it doesn't hide it.
 location:
   x: 46.9
-  y: 30.6
+  "y": 30.6
   area: [[45.8, 22.1], [47.8, 22.2], [48.0, 28.1], [45.8, 28.2]]
 # cover: "cover.jpg"
 # coverAlt: "Describe the cover photo"

@@ -11,7 +11,7 @@ summary: "Organic vegetables grown in the garden beds beside the greenhouses."
 # The marker sits just above the garden so its label doesn't cover the orchards on either side.
 location:
   x: 41.0
-  y: 18.8
+  "y": 18.8
   area: [[38.1, 21.3], [44.1, 21.8], [44.1, 28.8], [35.7, 27.2]]
 # cover: "cover.jpg"
 # coverAlt: "Describe the cover photo"

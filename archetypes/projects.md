@@ -9,7 +9,7 @@ status: "Planning"    # e.g. Planning, Early stage, In progress, Coming soon
 summary: "One sentence shown on the projects page and under the title."
 # location:           # optional marker on the projects map, in % from the left/top of the overhead photo;
 #   x: 50             # in `npm run dev`, click the photo on /projects/ to get these
-#   y: 50
+#   "y": 50
 #   area: [[40, 40], [60, 40], [60, 60], [40, 60]]   # optional: corners of a highlighted, clickable patch
 #   label: "left"     # optional: put the label left of the marker
 # cover: "cover.jpg"  # optional wide photo, in this folder or in the media bucket under this project's folder name

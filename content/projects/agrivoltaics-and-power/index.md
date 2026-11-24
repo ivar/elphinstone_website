@@ -9,7 +9,7 @@ icon: "solar"
 summary: "Growing food and generating electricity on the same ground, and learning how household power works along the way."
 # location:           # optional marker on the projects map; without one the project is listed under "Beyond the map"
 #   x: 50
-#   y: 50
+#   "y": 50
 # cover: "cover.jpg"
 # coverAlt: "Describe the cover photo"
 # intention:

@@ -56,12 +56,12 @@ The educational text is the page body below the front matter; use the `term` sho
 
 ### Projects map
 
-The top of `/projects/` is an overhead photo of the western half of the property with a marker linking to each project. To place a project on it, add a `location` to its `index.md`; `x` and `y` are percentages from the left and top of the photo:
+The top of `/projects/` is an overhead photo of the western half of the property with a marker linking to each project. To place a project on it, add a `location` to its `index.md`; `x` and `y` are percentages from the left and top of the photo: Keep the quotes around `"y"`: without them some Hugo versions read it as "yes" and the marker ends up at the top edge.
 
 ```yaml
 location:
   x: 48.4
-  y: 31.3
+  "y": 31.3
   label: "left"   # optional: put the label left of the marker
   area: [[20, 62], [55, 66], [50, 88], [24, 86]]   # optional: corners of a highlighted, clickable patch
 ```
