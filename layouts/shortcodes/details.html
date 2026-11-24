@@ -1,0 +1,5 @@
+{{- /* A section that starts collapsed: {{< details "Heading" >}}markdown{{< /details >}}. Add `open` as a second argument to start expanded. */ -}}
+<details class="collapse collapse-arrow bg-base-100 shadow-sm my-6"{{ if eq (.Get 1) "open" }} open{{ end }}>
+  <summary class="collapse-title font-serif text-2xl font-bold text-primary">{{ .Get 0 }}</summary>
+  <div class="collapse-content">{{ .Inner | .Page.RenderString (dict "display" "block") }}</div>
+</details>

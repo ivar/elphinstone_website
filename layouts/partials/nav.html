@@ -3,6 +3,8 @@
   {{ range site.Menus.main }}
     {{ if eq $page.RelPermalink .URL }}
     <span class="text-primary underline underline-offset-4 cursor-default">{{ .Name }}</span>
+    {{ else if and (ne .URL "/") (hasPrefix $page.RelPermalink .URL) }}
+    <a href="{{ .URL }}" class="text-primary underline underline-offset-4">{{ .Name }}</a>
     {{ else }}
     <a href="{{ .URL }}" class="text-primary/70 hover:text-primary transition-colors">{{ .Name }}</a>
     {{ end }}

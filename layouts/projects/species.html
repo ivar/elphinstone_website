@@ -1,0 +1,140 @@
+{{ define "main" }}
+{{- /*
+  Species list for the property. Data comes from data/species.json, written by
+  scripts/fetch-species.mjs from iNaturalist observations inside data/property_boundary.json.
+*/ -}}
+{{ $color := .Params.color | default "primary" }}
+{{ $data := site.Data.species }}
+<div class="min-h-screen flex flex-col">
+  <div class="bg-linear-to-b from-white to-[#e3e6e7] flex-1">
+    {{ partial "page-header.html" . }}
+
+    <article class="max-w-6xl mx-auto px-6 py-10">
+      <a href="/projects/" class="text-sm font-semibold text-primary/70 hover:text-primary">← All projects</a>
+
+      <header class="text-center max-w-3xl mx-auto mt-4 mb-8">
+        {{ with .Params.status }}<span class="badge badge-{{ $color }} mb-3">{{ . }}</span>{{ end }}
+        <h1 class="text-3xl sm:text-4xl font-bold text-primary mb-4 wrap-break-word">{{ .Title }}</h1>
+        <p class="text-lg">{{ .Params.summary }}</p>
+      </header>
+
+      {{ with .Content }}<div class="page-content max-w-3xl mx-auto mb-10">{{ . }}</div>{{ end }}
+
+      {{ with $data }}
+        <dl class="grid grid-cols-3 gap-3 max-w-xl mx-auto mb-4 text-center">
+          <div class="rounded-box bg-base-100 shadow-sm px-2 py-4">
+            <dd class="font-serif text-3xl font-bold text-primary">{{ len .species }}</dd>
+            <dt class="text-sm">species</dt>
+          </div>
+          <div class="rounded-box bg-base-100 shadow-sm px-2 py-4">
+            <dd class="font-serif text-3xl font-bold text-primary">{{ .observations }}</dd>
+            <dt class="text-sm">observations</dt>
+          </div>
+          {{/* The whole tile opens the list of observers. */}}
+          <div class="relative rounded-box bg-base-100 shadow-sm px-2 py-4 transition hover:shadow-md focus-within:ring-2 focus-within:ring-primary">
+            <dd class="font-serif text-3xl font-bold text-primary">
+              <button type="button" class="cursor-pointer outline-none after:absolute after:inset-0" aria-haspopup="dialog" aria-label="{{ len .observers }} observers: show who" onclick="document.getElementById('observers-dialog').showModal()">{{ len .observers }}</button>
+            </dd>
+            <dt class="text-sm underline decoration-dotted underline-offset-4">observers</dt>
+          </div>
+        </dl>
+
+        <dialog id="observers-dialog" class="modal" aria-labelledby="observers-title">
+          <div class="modal-box">
+            <h2 id="observers-title" class="text-2xl font-bold text-primary mb-1">Observers</h2>
+            <p class="text-sm opacity-70 mb-4">Everyone who has recorded a species on the property, with how many of their observations are counted here.</p>
+            <ol class="divide-y divide-base-300">
+              {{ range .observers }}
+                <li class="flex items-baseline justify-between gap-4 py-2">
+                  <a href="https://www.inaturalist.org/people/{{ .login }}" class="font-semibold hover:underline underline-offset-4 wrap-break-word min-w-0" target="_blank" rel="noopener">{{ .name }}</a>
+                  <span class="text-sm opacity-70 whitespace-nowrap">{{ .observations }} {{ cond (eq (int .observations) 1) "observation" "observations" }}</span>
+                </li>
+              {{ end }}
+            </ol>
+            <div class="modal-action">
+              <form method="dialog"><button class="btn btn-primary btn-sm">Close</button></form>
+            </div>
+          </div>
+          <form method="dialog" class="modal-backdrop"><button>Close</button></form>
+        </dialog>
+        <p class="text-center text-sm opacity-70 mb-8">
+          Updated {{ (time .updated).Format "January 2, 2006" }} ·
+          <a href="{{ .inaturalist_url }}" class="underline underline-offset-4" target="_blank" rel="noopener">See the observations on iNaturalist</a>
+        </p>
+
+        <nav class="flex flex-wrap justify-center gap-2 mb-10" aria-label="Jump to a group">
+          {{ range $group := .groups }}
+            <a href="#{{ $group | urlize }}" class="btn btn-sm">{{ $group }} <span class="opacity-60">{{ len (where $data.species "group" $group) }}</span></a>
+          {{ end }}
+        </nav>
+
+        {{ range $group := .groups }}
+          {{ $members := where $data.species "group" $group }}
+          <section id="{{ $group | urlize }}" class="mb-12 scroll-mt-6">
+            <h2 class="text-2xl font-bold text-primary mb-4">{{ $group }} <span class="text-base font-normal opacity-60">{{ len $members }}</span></h2>
+            <ul class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+              {{ range $s := $members }}
+                {{ $label := .common_name | default .name }}
+                <li class="flex flex-col rounded-box bg-base-100 shadow-sm overflow-hidden">
+                  {{ $thumb := false }}
+                  {{ with .photo }}
+                    {{ $url := .url }}
+                    {{ with try (resources.GetRemote $url) }}
+                      {{ with .Err }}
+                        {{ warnf "Could not fetch species photo %s: %s" $url . }}
+                      {{ else with .Value }}
+                        {{ $thumb = (. | resources.Copy (printf "media/species/%d%s" (int $s.id) (path.Ext $url))).Fill "360x360 Center webp" }}
+                      {{ end }}
+                    {{ end }}
+                  {{ end }}
+                  {{ with $thumb }}
+                    <a href="{{ $s.photo.observation }}" target="_blank" rel="noopener">
+                      <img src="{{ .RelPermalink }}" width="{{ .Width }}" height="{{ .Height }}" alt="{{ $label }}" loading="lazy" class="w-full aspect-square object-cover" />
+                    </a>
+                  {{ else }}
+                    <div class="aspect-square bg-base-200 flex items-center justify-center text-sm opacity-60">No photo yet</div>
+                  {{ end }}
+                  <div class="flex flex-col gap-1 p-3 flex-1">
+                    <h3 class="font-sans font-bold leading-tight wrap-break-word">
+                      <a href="https://www.inaturalist.org/taxa/{{ int .id }}" class="hover:underline underline-offset-4" target="_blank" rel="noopener">{{ $label }}</a>
+                    </h3>
+                    {{ if .common_name }}<p class="text-sm italic opacity-70 leading-tight wrap-break-word">{{ .name }}</p>{{ end }}
+                    <div class="flex flex-wrap gap-1 mt-1">
+                      {{ if .introduced }}<span class="badge badge-sm badge-soft badge-accent">Introduced</span>{{ end }}
+                      {{ if not .confirmed }}<span class="badge badge-sm badge-ghost">Unconfirmed</span>{{ end }}
+                    </div>
+                    <p class="text-xs opacity-60 mt-auto pt-2">
+                      Seen {{ .observations }}×{{ with .last_observed }}, last {{ (time .).Format "Jan 2006" }}{{ end }}
+                      {{ with .photo }}<br />Photo: {{ .credit }}{{ end }}
+                    </p>
+                  </div>
+                </li>
+              {{ end }}
+            </ul>
+          </section>
+        {{ end }}
+
+        <section class="rounded-box bg-base-200 px-5 py-4 text-sm leading-relaxed max-w-3xl mx-auto mb-12">
+          <h2 class="font-sans text-xs font-bold uppercase tracking-wider text-primary mb-1">How this list is made</h2>
+          <p>
+            Each time the site is published it collects the iNaturalist observations that fall inside the property boundary and are identified to species.
+            Cultivated plants and captive animals are left out, as are observations whose location is hidden.
+            <strong>Introduced</strong> marks species that iNaturalist lists as not native to British Columbia.
+            <strong>Unconfirmed</strong> means no observation of that species has yet been confirmed by the iNaturalist community, so the identification may change.
+            Tap a photo to see the original observation, or a name to learn about the species.
+          </p>
+        </section>
+      {{ else }}
+        <p class="rounded-box bg-base-200 px-5 py-4 max-w-3xl mx-auto mb-12">The species list is on its way.</p>
+      {{ end }}
+
+      <nav class="flex flex-col sm:flex-row justify-between gap-4 border-t border-base-300 pt-6" aria-label="More projects">
+        {{ with .NextInSection }}<a href="{{ .RelPermalink }}" class="text-primary/80 hover:text-primary font-semibold">← {{ .Title }}</a>{{ else }}<span></span>{{ end }}
+        {{ with .PrevInSection }}<a href="{{ .RelPermalink }}" class="text-primary/80 hover:text-primary font-semibold sm:text-right">{{ .Title }} →</a>{{ end }}
+      </nav>
+    </article>
+  </div>
+
+  {{ partial "footer.html" . }}
+</div>
+{{ end }}

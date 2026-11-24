@@ -6,6 +6,17 @@ disableKinds = ["taxonomy", "term"]
 [params]
   description = "An aspiring small-scale agritech solarpunk venture on the Sunshine Coast, BC — building syntropic agroforestry labs, a native plant nursery, and a collaborative workspace."
 
+  # Public URL of the R2 bucket holding project photos (<mediaBaseURL>/<project-folder>/<file>).
+  mediaBaseURL = "https://media.elphinstone.farm"
+
+  # Area shown in the overhead photo on /projects/ (the western half of the property).
+  # Ignored if you supply your own photo at assets/images/property-overhead.jpg.
+  [params.propertyMap]
+    west  = -123.4902
+    east  = -123.4830
+    south = 49.4466
+    north = 49.4515
+
 [minify]
   minifyOutput = true
 
@@ -18,16 +29,21 @@ disableKinds = ["taxonomy", "term"]
   weight = 1
 
 [[menus.main]]
+  name   = "Projects"
+  url    = "/projects/"
+  weight = 2
+
+[[menus.main]]
   name   = "About Us"
   url    = "/about/"
-  weight = 2
+  weight = 3
 
 [[menus.main]]
   name   = "Collaborate"
   url    = "/collaborate/"
-  weight = 3
+  weight = 4
 
 [[menus.main]]
   name   = "Getting Here"
   url    = "/getting-here/"
-  weight = 4
+  weight = 5

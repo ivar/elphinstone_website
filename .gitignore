@@ -12,6 +12,7 @@ dist
 dist-ssr
 public
 static/css
+resources/_gen
 *.local
 
 # Editor directories and files

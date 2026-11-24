@@ -1,0 +1,150 @@
+{{- /*
+  Overhead photo of the property with a marker for every project that has a `location`
+  (x, y as % from the left/top of the photo, optional label: "left") in its front matter.
+  An optional `area` (a list of [x, y] corners, also in %) highlights the project's patch of
+  ground and makes it clickable too.
+  Expects the projects list page.
+
+  Photo: assets/images/property-overhead.* if present. Otherwise the regional district's
+  aerial photo of the area set by params.propertyMap in hugo.toml is fetched at build time,
+  and the property boundary (data/property_boundary.json) is drawn over it.
+*/ -}}
+{{ $image := resources.GetMatch "images/property-overhead.*" }}
+{{ $credit := "" }}
+{{ $w := 1600 }}
+{{ $h := 1600 }}
+{{ $outline := "" }}
+
+{{ with $image }}
+  {{ $w = .Width }}{{ $h = .Height }}
+{{ else }}
+  {{ $view := site.Params.propertyMap }}
+  {{ $west := float $view.west }}{{ $east := float $view.east }}
+  {{ $south := float $view.south }}{{ $north := float $view.north }}
+
+  {{/* Web Mercator extent, so the image isn't stretched. */}}
+  {{ $rad := div math.Pi 180 }}
+  {{ $r := 6378137.0 }}
+  {{ $xW := mul $r (mul $west $rad) }}{{ $xE := mul $r (mul $east $rad) }}
+  {{ $yS := mul $r (math.Log (math.Tan (add (div math.Pi 4) (div (mul $south $rad) 2)))) }}
+  {{ $yN := mul $r (math.Log (math.Tan (add (div math.Pi 4) (div (mul $north $rad) 2)))) }}
+  {{ $h = int (math.Round (div (mul $w (sub $yN $yS)) (sub $xE $xW))) }}
+
+  {{ $url := printf "https://maps.scrd.ca/arcgis/rest/services/Imagery_2024/ImageServer/exportImage?bbox=%.2f,%.2f,%.2f,%.2f&bboxSR=3857&imageSR=3857&size=%d,%d&format=jpg&f=image" $xW $yS $xE $yN $w $h }}
+  {{ with try (resources.GetRemote $url) }}
+    {{ with .Err }}
+      {{ warnf "Could not fetch the overhead image: %s" . }}
+    {{ else with .Value }}
+      {{ $image = . | resources.Copy "images/property-overhead-scrd.jpg" }}
+      {{ $credit = "Aerial photo: Sunshine Coast Regional District, 2024." }}
+    {{ end }}
+  {{ end }}
+
+  {{/* Boundary outline in image pixels. */}}
+  {{ range $i, $p := index site.Data.property_boundary.geometry.coordinates 0 }}
+    {{ $x := mul $w (div (sub (index $p 0) $west) (sub $east $west)) }}
+    {{ $y := mul $h (div (sub $north (index $p 1)) (sub $north $south)) }}
+    {{ $outline = printf "%s%s%.1f %.1f" $outline (cond (eq $i 0) "M" "L") $x $y }}
+  {{ end }}
+  {{ $outline = printf "%sZ" $outline }}
+{{ end }}
+
+<figure class="mb-10 max-w-2xl mx-auto">
+  <div id="property-map" class="relative rounded-box overflow-hidden shadow-md bg-secondary">
+    {{ with $image }}
+      {{ $small := .Resize "800x webp q75" }}
+      {{ $large := .Resize "1600x webp q75" }}
+      <img src="{{ $large.RelPermalink }}" srcset="{{ $small.RelPermalink }} 800w, {{ $large.RelPermalink }} 1600w" sizes="(min-width: 42rem) 42rem, 100vw"
+           width="{{ $w }}" height="{{ $h }}" alt="Overhead view of Elphinstone Farm" class="block w-full h-auto" />
+    {{ else }}
+      <div style="{{ printf "aspect-ratio:%d/%d" $w $h | safeCSS }}"></div>
+    {{ end }}
+
+    {{ with $outline }}
+    <svg viewBox="0 0 {{ $w }} {{ $h }}" class="absolute inset-0 size-full pointer-events-none" aria-hidden="true">
+      {{/* Dim everything outside the boundary, then outline it. */}}
+      <path d="M0 0H{{ $w }}V{{ $h }}H0Z{{ . }}" fill-rule="evenodd" fill="#000" fill-opacity="0.4" />
+      <path d="{{ . }}" fill="none" stroke="#fff" stroke-width="3" stroke-dasharray="12 8" stroke-linejoin="round" vector-effect="non-scaling-stroke" />
+    </svg>
+    {{ end }}
+
+    {{/* Highlighted areas. The 0-100 viewBox is stretched over the photo, so points are in %. */}}
+    <svg viewBox="0 0 100 100" preserveAspectRatio="none" class="absolute inset-0 size-full pointer-events-none">
+      {{ range $project := .Pages.ByWeight }}
+        {{ with .Params.location }}{{ with .area }}
+          {{ $points := slice }}
+          {{ range . }}{{ $points = $points | append (printf "%.2f,%.2f" (float (index . 0)) (float (index . 1))) }}{{ end }}
+          <a href="{{ $project.RelPermalink }}" tabindex="-1" aria-hidden="true" style="{{ printf "color:var(--color-%s)" ($project.Params.color | default "primary") | safeCSS }}"
+             class="pointer-events-auto">
+            <polygon points="{{ delimit $points " " }}" class="[fill-opacity:0.25] hover:[fill-opacity:0.45] transition" fill="currentColor" stroke="currentColor" stroke-width="3" stroke-linejoin="round" vector-effect="non-scaling-stroke" />
+          </a>
+        {{ end }}{{ end }}
+      {{ end }}
+    </svg>
+
+    {{ range $project := .Pages.ByWeight }}
+      {{ with .Params.location }}
+        {{ $color := $project.Params.color | default "primary" }}
+        {{/* The marker circle is centred on the point; the label sits to its right (or left). */}}
+        <a href="{{ $project.RelPermalink }}" aria-label="{{ $project.Title }}" style="{{ printf "left:%.2f%%;top:%.2f%%" (float .x) (float .y) | safeCSS }}"
+           class="group absolute flex items-center gap-2 -translate-y-1/2 {{ if eq .label "left" }}flex-row-reverse -translate-x-[calc(100%-1rem)]{{ else }}-translate-x-4{{ end }}">
+          <span class="grid place-items-center size-8 shrink-0 rounded-full bg-{{ $color }} text-{{ $color }}-content ring-2 ring-white shadow-lg transition group-hover:scale-110 group-focus-visible:scale-110">
+            {{ partial "icon.html" ($project.Params.icon | default "plant") }}
+          </span>
+          <span class="hidden md:block rounded-full bg-base-100/95 text-base-content px-3 py-1 text-sm font-semibold whitespace-nowrap shadow-md group-hover:underline">{{ $project.Title }}</span>
+        </a>
+      {{ end }}
+    {{ end }}
+  </div>
+  <figcaption class="mt-2 text-sm opacity-70 text-center">
+    Select a marker or a highlighted area to visit a project.{{ if $outline }} The dashed line is the property boundary.{{ end }}
+    {{ with $credit }}{{ . }}{{ end }}
+  </figcaption>
+
+  {{ if hugo.IsServer }}
+    {{/* Dev only: click the photo to get a `location` (and, from several clicks, an `area`) for a project's front matter. */}}
+    <div class="mt-2 text-xs text-center opacity-70">
+      <pre id="property-map-readout">Dev: click the photo to get a location for a project's front matter.
+Click around the edge of a patch to get an area for it.
+Highlighted areas open their project; hide the markers (or hold Alt) to click points on them instead.</pre>
+      <button type="button" id="property-map-clear" class="btn btn-xs mt-1">Start a new area</button>
+      <button type="button" id="property-map-markers" class="btn btn-xs mt-1" aria-pressed="false">Hide markers</button>
+    </div>
+    <script>
+      (() => {
+        const map = document.getElementById("property-map");
+        const out = document.getElementById("property-map-readout");
+        let points = [];
+        let drawing = false;
+        document.getElementById("property-map-clear").addEventListener("click", () => {
+          points = [];
+          out.textContent = "Cleared. Click the photo to start again.";
+        });
+        // Markers and labels can sit on top of the spot you want to click; this takes them out of the way,
+        // and makes clicks on highlighted areas place points instead of opening the project.
+        document.getElementById("property-map-markers").addEventListener("click", (e) => {
+          const hide = e.currentTarget.getAttribute("aria-pressed") !== "true";
+          e.currentTarget.setAttribute("aria-pressed", hide);
+          e.currentTarget.textContent = hide ? "Show markers" : "Hide markers";
+          drawing = hide;
+          map.querySelectorAll(":scope > a").forEach((a) => (a.hidden = hide));
+        });
+        map.addEventListener("click", (e) => {
+          // A highlighted area opens its project, as on the live site, unless we're drawing.
+          if (e.target.closest("svg a")) {
+            if (!drawing && !e.altKey) return;
+            e.preventDefault();
+          } else if (e.target.closest("a")) return;
+          const box = map.getBoundingClientRect();
+          const x = (((e.clientX - box.left) / box.width) * 100).toFixed(1);
+          const y = (((e.clientY - box.top) / box.height) * 100).toFixed(1);
+          points.push(`[${x}, ${y}]`);
+          let text = `location:\n  x: ${x}\n  y: ${y}`;
+          if (points.length >= 3) text += `\n  area: [${points.join(", ")}]`;
+          out.textContent = text + "\n(copied to clipboard)";
+          navigator.clipboard?.writeText(text);
+        });
+      })();
+    </script>
+  {{ end }}
+</figure>

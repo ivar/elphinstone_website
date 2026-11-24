@@ -1,0 +1,117 @@
+{
+  "apple-orchard": [
+    {
+      "title": "Harvest the last apples",
+      "start": "2026-10-21",
+      "due": "2026-10-21"
+    },
+    {
+      "title": "Prune Apple Trees"
+    },
+    {
+      "title": "Process harvested apples"
+    },
+    {
+      "title": "Pick fallen apples and save"
+    },
+    {
+      "title": "Fix apple trees that are leaning"
+    }
+  ],
+  "blueberry-farm": [
+    {
+      "title": "Weedwack around bushes",
+      "priority": "High"
+    },
+    {
+      "title": "Mow between rows",
+      "priority": "High"
+    },
+    {
+      "title": "Clear fence line above blueberry fields"
+    },
+    {
+      "title": "Prune Blueberry Bushes"
+    },
+    {
+      "title": "Mulch Under bushes"
+    },
+    {
+      "title": "Plant comfry in perimeter of field"
+    },
+    {
+      "title": "Assess current bush health & determine quantity of replacements"
+    },
+    {
+      "title": "Ongoing monitering for mummyberry"
+    }
+  ],
+  "market-garden-hoop-house": [
+    {
+      "title": "Remove blackberrys and other weeds from sides"
+    },
+    {
+      "title": "Tarp east hoop house"
+    },
+    {
+      "title": "Clear brambles from side of green house"
+    },
+    {
+      "title": "Weeding hoop house"
+    },
+    {
+      "title": "Winterize peppers"
+    },
+    {
+      "title": "Weed Hoophouse"
+    },
+    {
+      "title": "Weed and organize work area"
+    },
+    {
+      "title": "Weekly pruning and trellising of tomatoes"
+    },
+    {
+      "title": "Get temperature and humidity gauge"
+    },
+    {
+      "title": "Weed between all rows"
+    },
+    {
+      "title": "Add hooks and clips to all remaining tomato and cucumber plants"
+    }
+  ],
+  "mixed-fruit-orchard": [
+    {
+      "title": "Build trellis for raspberries and plant raspberries"
+    },
+    {
+      "title": "Order pear and peach trees"
+    }
+  ],
+  "organic-market-garden": [
+    {
+      "title": "Creating pathways to the house"
+    },
+    {
+      "title": "Plant Garlic row"
+    }
+  ],
+  "subtropical-hoop-house": [
+    {
+      "title": "Weeding greenhouse"
+    },
+    {
+      "title": "Weed and move out clutter"
+    }
+  ],
+  "syntropic-agroforestry": [
+    {
+      "title": "Clear brambles"
+    },
+    {
+      "title": "Plant trees in food forest"
+    }
+  ],
+  "wetland-agriculture": []
+}
