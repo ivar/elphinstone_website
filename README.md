@@ -73,3 +73,7 @@ By default the photo is the Sunshine Coast Regional District's 2024 aerial photo
 ### Species list
 
 `/projects/species/` lists every species recorded on [iNaturalist](https://www.inaturalist.org/) inside the property boundary (`data/property_boundary.json`). `npm run build` refreshes it; `npm run species` refreshes just the data file, `data/species.json`. That file is committed so the page still builds if iNaturalist is unreachable. To add a species, post an observation on iNaturalist from the property; it appears after the next build once it is identified to species.
+
+### Next tasks
+
+Project pages can list their open tasks from our task tracker, [OpenProject](https://tasks.elphinstone.farm). Add the tracker project's identifier (the last part of its URL) to the page's front matter, e.g. `openproject: ["blueberry-fields"]`; subprojects are included. `tasksMatch: "apple"` keeps only tasks whose title matches, `tasksExclude` drops them. `npm run build` refreshes the lists; `npm run tasks` refreshes just the data file, `data/tasks.json`. Both need an OpenProject API token as `OPENPROJECT_TOKEN`, in the environment or in a `.env.local` file; without one the committed file is used as is. Only task titles, priorities and dates are published, and only for projects a page asks for, so keep titles fit for the public.

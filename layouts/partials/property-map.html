@@ -105,7 +105,8 @@
     {{/* Dev only: click the photo to get a `location` (and, from several clicks, an `area`) for a project's front matter. */}}
     <div class="mt-2 text-xs text-center opacity-70">
       <pre id="property-map-readout">Dev: click the photo to get a location for a project's front matter.
-Click around the edge of a patch to get an area for it.</pre>
+Click around the edge of a patch to get an area for it.
+Highlighted areas open their project; hide the markers (or hold Alt) to click points on them instead.</pre>
       <button type="button" id="property-map-clear" class="btn btn-xs mt-1">Start a new area</button>
       <button type="button" id="property-map-markers" class="btn btn-xs mt-1" aria-pressed="false">Hide markers</button>
     </div>
@@ -114,21 +115,26 @@ Click around the edge of a patch to get an area for it.</pre>
         const map = document.getElementById("property-map");
         const out = document.getElementById("property-map-readout");
         let points = [];
+        let drawing = false;
         document.getElementById("property-map-clear").addEventListener("click", () => {
           points = [];
           out.textContent = "Cleared. Click the photo to start again.";
         });
-        // Markers and labels can sit on top of the spot you want to click; this takes them out of the way.
+        // Markers and labels can sit on top of the spot you want to click; this takes them out of the way,
+        // and makes clicks on highlighted areas place points instead of opening the project.
         document.getElementById("property-map-markers").addEventListener("click", (e) => {
           const hide = e.currentTarget.getAttribute("aria-pressed") !== "true";
           e.currentTarget.setAttribute("aria-pressed", hide);
           e.currentTarget.textContent = hide ? "Show markers" : "Hide markers";
+          drawing = hide;
           map.querySelectorAll(":scope > a").forEach((a) => (a.hidden = hide));
         });
         map.addEventListener("click", (e) => {
-          // In dev, clicks on a highlighted area place a point instead of following the link.
-          if (e.target.closest("svg a")) e.preventDefault();
-          else if (e.target.closest("a")) return;
+          // A highlighted area opens its project, as on the live site, unless we're drawing.
+          if (e.target.closest("svg a")) {
+            if (!drawing && !e.altKey) return;
+            e.preventDefault();
+          } else if (e.target.closest("a")) return;
           const box = map.getBoundingClientRect();
           const x = (((e.clientX - box.left) / box.width) * 100).toFixed(1);
           const y = (((e.clientY - box.top) / box.height) * 100).toFixed(1);

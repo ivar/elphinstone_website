@@ -1,0 +1,594 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="A light eight-session course on household electricity, solar, wind, micro-hydro, batteries and jump starting a tractor.">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Home Power Basics</title>
+<style>
+/* The farm site's self-hosted fonts; no external requests. */
+@font-face{font-family:"Fraunces Variable";font-style:normal;font-display:swap;font-weight:100 900;src:url(/fonts/fraunces-latin-wght-normal.woff2) format("woff2-variations")}
+@font-face{font-family:"Nunito Variable";font-style:normal;font-display:swap;font-weight:200 1000;src:url(/fonts/nunito-latin-wght-normal.woff2) format("woff2-variations")}
+/* Layout: one reading column, a sticky strip for region + module jumps, each module a plain section with the same four parts. */
+:root{
+  --bg:#EDF0F2; --surface:#FFFFFF; --ink:#17212B; --muted:#586673; --line:#CFD6DC;
+  --accent:#A8500A; --accent-soft:#F6E7D6; --danger:#A6241C; --danger-soft:#FBE9E7; --ok:#1F6F4A;
+  --live:#7A4A21; --neutral:#1F5FBF; --earth:#3D8B37;
+  --display:"Fraunces Variable",Georgia,serif; --body:"Nunito Variable",system-ui,sans-serif; --mono:ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#11171C; --surface:#1A222A; --ink:#E5EBEF; --muted:#94A2AE; --line:#2E3943;
+  --accent:#F0A347; --accent-soft:#33281A; --danger:#FF8F85; --danger-soft:#3A1F1D; --ok:#6FCF9B;
+  --live:#C98B55; --neutral:#6FA5F5; --earth:#7BC974; color-scheme:dark } }
+:root[data-theme="dark"]{
+  --bg:#11171C; --surface:#1A222A; --ink:#E5EBEF; --muted:#94A2AE; --line:#2E3943;
+  --accent:#F0A347; --accent-soft:#33281A; --danger:#FF8F85; --danger-soft:#3A1F1D; --ok:#6FCF9B;
+  --live:#C98B55; --neutral:#6FA5F5; --earth:#7BC974; color-scheme:dark }
+
+body{background:var(--bg);color:var(--ink);font:16px/1.6 var(--body)}
+.wrap{max-width:46rem;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header.top{padding-block:2.5rem 1.5rem}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;line-height:1.2;margin:0}
+h1{font-size:2.1rem;font-weight:700}
+h2{font-size:1.5rem;font-weight:600}
+h3{font-size:1.05rem;font-weight:600;margin-top:1.6rem}
+p{margin:.7rem 0}
+.lede{font-size:1.1rem;color:var(--muted);max-width:38rem}
+.eyebrow{font:500 .75rem var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+code,.u{font-family:var(--mono);font-size:.92em}
+.formula{font-family:var(--mono);background:var(--surface);border:1px solid var(--line);padding:.6rem .8rem;margin:.8rem 0;overflow-x:auto;white-space:nowrap}
+
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+.bar .wrap{display:flex;gap:.75rem 1rem;align-items:center;flex-wrap:wrap;padding-block:.5rem}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.seg button{font:500 .8rem var(--body);padding:.35rem .7rem;border:0;background:var(--surface);color:var(--muted);cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.jump{display:flex;gap:.25rem;flex-wrap:wrap}
+.jump a{font:500 .8rem var(--mono);text-decoration:none;color:var(--muted);padding:.2rem .5rem;border-radius:4px}
+.jump a:hover{background:var(--surface);color:var(--ink)}
+.barlabel{font-size:.8rem;color:var(--muted)}
+
+[data-region="eu"] .na,[data-region="na"] .eu{display:none}
+
+section.mod{padding-block:2.2rem;border-top:1px solid var(--line)}
+.meta{font:.8rem var(--mono);color:var(--muted);margin:.3rem 0 1rem}
+ul,ol{padding-left:1.25rem;margin:.6rem 0}
+li{margin:.3rem 0}
+.warn{background:var(--danger-soft);border-left:3px solid var(--danger);padding:.7rem .9rem;margin:1rem 0}
+.warn strong{color:var(--danger)}
+.try{background:var(--accent-soft);padding:.8rem 1rem;margin:1.2rem 0}
+.try h3{margin-top:0}
+details{border-top:1px solid var(--line);padding:.55rem 0}
+details:last-of-type{border-bottom:1px solid var(--line)}
+summary{cursor:pointer;font-weight:500}
+details p{color:var(--muted);margin:.4rem 0 .2rem}
+.scroll{overflow-x:auto;margin:1rem 0}
+table{border-collapse:collapse;width:100%;font-size:.92rem;font-variant-numeric:tabular-nums}
+th,td{text-align:left;padding:.45rem .7rem .45rem 0;border-bottom:1px solid var(--line);vertical-align:top}
+th{font:500 .72rem var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.wire{display:inline-block;width:1.6rem;height:.5rem;border-radius:2px;vertical-align:middle;margin-right:.4rem}
+
+.tool{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:1rem;margin:1.2rem 0}
+.tool h3{margin-top:0}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(13rem,1fr));gap:.3rem .9rem;margin:.8rem 0}
+.grid label{display:flex;gap:.5rem;align-items:baseline;font-size:.92rem;min-width:0}
+.grid label span{margin-left:auto;font:.8rem var(--mono);color:var(--muted);white-space:nowrap}
+.fields{display:grid;grid-template-columns:repeat(auto-fill,minmax(9.5rem,1fr));gap:.7rem;margin:.8rem 0}
+.fields label{display:flex;flex-direction:column;gap:.2rem;font-size:.8rem;color:var(--muted)}
+input[type=number],select{font:1rem var(--mono);padding:.35rem .5rem;border:1px solid var(--line);border-radius:5px;background:var(--bg);color:var(--ink);width:100%;box-sizing:border-box}
+.meter{height:.9rem;background:var(--bg);border:1px solid var(--line);border-radius:3px;overflow:hidden;margin:.5rem 0}
+.meter i{display:block;height:100%;background:var(--ok);width:0;transition:width .2s}
+.meter i.hot{background:var(--danger)}
+@media (prefers-reduced-motion:reduce){.meter i{transition:none}}
+.readout{font:500 1rem var(--mono)}
+.note{font-size:.85rem;color:var(--muted)}
+.rows{display:grid;grid-template-columns:5rem 1fr 6.5rem;gap:.35rem .7rem;align-items:center;font-size:.9rem}
+.rows .meter{margin:0}
+.rows b{font:500 .9rem var(--mono);text-align:right}
+svg text{font-family:var(--mono);font-size:12px;fill:var(--ink)}
+svg .box{fill:var(--surface);stroke:var(--ink);stroke-width:1.2}
+svg .dc{stroke:var(--accent);stroke-width:2;fill:none}
+svg .ac{stroke:var(--neutral);stroke-width:2;fill:none}
+svg .lbl{fill:var(--muted);font-size:11px}
+.toc{padding-block:1.8rem .6rem}
+.toc h2{font-size:1.1rem}
+.toc ol{margin:.8rem 0;padding-left:1.6rem;font-variant-numeric:tabular-nums}
+.toc li{margin:.15rem 0;padding:.3rem 0;border-bottom:1px solid var(--line)}
+.toc li::marker{font:500 .85rem var(--mono);color:var(--muted)}
+.toc li a{font-weight:500;text-decoration:none}
+.toc li a:hover{text-decoration:underline}
+.toc li span{display:block;font-size:.85rem;color:var(--muted)}
+section.mod,.toc{scroll-margin-top:3.5rem}
+.quiz{margin-top:1.8rem}
+.quiz .q{margin:1.1rem 0}
+.quiz .q p{margin:0 0 .45rem;font-weight:500}
+.opts{display:grid;gap:.35rem}
+.opts button{text-align:left;font:inherit;font-size:.95rem;padding:.5rem .75rem;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink);cursor:pointer}
+.opts button:hover:not(:disabled){border-color:var(--ink)}
+.opts button:disabled{cursor:default;opacity:.75}
+.opts button.right{border-color:var(--ok);border-width:2px;opacity:1}
+.opts button.right::before{content:"✓  ";color:var(--ok);font-weight:600}
+.opts button.wrong{border-color:var(--danger);background:var(--danger-soft);opacity:1}
+.opts button.wrong::before{content:"✗  ";color:var(--danger);font-weight:600}
+.quiz .why{font-size:.9rem;color:var(--muted);margin:.45rem 0 0;font-weight:400}
+.quiz .score{font:500 .9rem var(--mono);display:flex;gap:1rem;align-items:center;flex-wrap:wrap}
+.quiz .score button{font:500 .8rem var(--body);padding:.3rem .7rem;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink);cursor:pointer}
+footer{padding-block:2rem 3rem;border-top:1px solid var(--line);color:var(--muted);font-size:.9rem}
+</style>
+</head>
+<body>
+
+<div id="app" data-region="na">
+
+<header class="top"><div class="wrap">
+  <p class="note" style="margin:0 0 1.2rem"><a href="/projects/agrivoltaics-and-power/">← Agrivoltaics and Power</a> · Elphinstone Farm</p>
+  <div class="eyebrow">Eight short sessions · about 45 minutes each</div>
+  <h1>Home Power Basics</h1>
+  <p class="lede">A light course in domestic electricity: what the numbers mean, how your panel and wiring are organised, how much load a house can carry, where solar, wind and water fit, and how to look after batteries and jump start a tractor.</p>
+</div></header>
+
+<div class="bar"><div class="wrap">
+  <span class="barlabel">Your mains:</span>
+  <div class="seg" role="group" aria-label="Mains standard">
+    <button id="r-na" type="button" aria-pressed="true">120/240 V · N. America</button>
+    <button id="r-eu" type="button" aria-pressed="false">230 V · Europe</button>
+  </div>
+  <nav class="jump" aria-label="Sessions">
+    <a href="#s1">1</a><a href="#s2">2</a><a href="#s3">3</a><a href="#s4">4</a><a href="#s5">5</a><a href="#s6">6</a><a href="#s7">7</a><a href="#s8">8</a>
+  </nav>
+</div></div>
+
+<main class="wrap">
+
+<nav class="toc" aria-label="Contents">
+  <h2>Contents</h2>
+  <ol>
+    <li><a href="#s1">The five numbers</a><span>volts, amps, ohms, watts, watt-hours</span></li>
+    <li><a href="#s2">From the street to the socket</a><span>panel, breakers, earth, wire sizes</span></li>
+    <li><a href="#s3">How much load can I carry?</a><span>circuit and whole-house limits</span></li>
+    <li><a href="#s4">Solar in a household grid</a><span>system types and key measurements</span></li>
+    <li><a href="#s5">Batteries and how to keep them alive</a><span>state of charge, care, lithium</span></li>
+    <li><a href="#s6">Jump starting a tractor</a><span>checks, clamp order, afterwards</span></li>
+    <li><a href="#s7">Wind and micro-hydro</a><span>estimating yield, joining the system</span></li>
+    <li><a href="#s8">Audit your own place</a><span>one page with your numbers</span></li>
+  </ol>
+  <p class="note"><a href="#start">How to use this course, and the safety ground rules</a></p>
+</nav>
+
+<section class="mod" id="start">
+  <h2>How to use this</h2>
+  <p>Do one session at a time, in order. Each has the ideas, one hands-on task you can do without opening anything live, two questions to think through before you open the answers, and a three-question quiz. Set the mains switch above to match your country. Voltages, wire colours and breaker sizes change with it.</p>
+  <h3>Kit worth having (roughly the price of one electrician call-out)</h3>
+  <ul>
+    <li><strong>Digital multimeter</strong> for battery voltage and continuity.</li>
+    <li><strong>Plug-in energy meter</strong> to see what an appliance really draws.</li>
+    <li><strong>Non-contact voltage tester</strong> to confirm a circuit is dead.</li>
+    <li><strong>Clamp meter that reads DC amps</strong> (optional) for battery and solar work.</li>
+  </ul>
+  <div class="warn"><strong>Ground rules.</strong> Mains voltage kills, and bad wiring starts fires years later. This course teaches you to read, measure and plan. Looking inside a panel with the cover on, resetting breakers and using plug-in meters is fine. Work inside the panel, new circuits and anything that connects a generator, inverter or battery to house wiring belongs to a licensed electrician, and in most countries the law says so too.</div>
+</section>
+
+<section class="mod" id="s1">
+  <div class="eyebrow">Session 1</div>
+  <h2>The five numbers</h2>
+  <div class="meta">volts · amps · ohms · watts · watt-hours</div>
+  <p>Think of water in a pipe. <strong>Voltage (V)</strong> is the pressure. <strong>Current (A, amps)</strong> is the flow. <strong>Resistance (Ω)</strong> is how narrow the pipe is. <strong>Power (W)</strong> is how hard the water is working right now, and <strong>energy (Wh)</strong> is how much work it has done over time.</p>
+  <div class="formula">P = V × I &nbsp;&nbsp;&nbsp; V = I × R &nbsp;&nbsp;&nbsp; energy (Wh) = P (W) × time (h)</div>
+  <ul>
+    <li><strong>kW is a rate, kWh is an amount.</strong> A 2 kW heater running 3 hours uses 6 kWh. Your bill is in kWh. Your breakers care about kW (really amps).</li>
+    <li><strong>Voltage is fixed by the supply, current is decided by the load.</strong> A socket offers <span class="eu">230 V</span><span class="na">120 V</span>. The appliance draws whatever current its power needs.</li>
+    <li><strong>Heat in a wire grows with the square of current</strong> (<code>P = I² × R</code>). Double the amps, four times the heat. This is why every wire has an amp limit, and why high power is easier at higher voltage.</li>
+    <li><strong>AC and DC.</strong> The grid is alternating current at <span class="eu">50 Hz</span><span class="na">60 Hz</span>. Batteries and solar panels are direct current. An inverter turns DC into AC, a charger or rectifier does the reverse.</li>
+  </ul>
+  <h3>Worked example</h3>
+  <p>A kettle is rated <span class="eu">2200 W. Current = 2200 ÷ 230 ≈ 9.6 A.</span><span class="na">1500 W. Current = 1500 ÷ 120 = 12.5 A.</span> The same wattage on a 12 V battery would need <span class="eu">183 A</span><span class="na">125 A</span>, which is why low-voltage cables are so thick.</p>
+  <div class="try"><h3>Try it</h3><p>Read the rating plate on five appliances. Write down the watts and work out the amps. Then check two of them with the plug-in meter. Note which ones draw far less than the plate says most of the time (fridge, washing machine).</p></div>
+  <details><summary>A 60 W laptop charger runs 8 hours a day. How many kWh per month?</summary><p>60 W × 8 h = 480 Wh a day, about 14.4 kWh over 30 days.</p></details>
+  <details><summary>Why does a 12 V system need much thicker cable than mains for the same power?</summary><p>Same power at lower voltage means more current, and heating and voltage drop both follow current. At <span class="eu">a nineteenth</span><span class="na">a tenth</span> of the voltage you need <span class="eu">nineteen</span><span class="na">ten</span> times the amps.</p></details>
+  <div class="quiz" data-quiz="1"></div>
+</section>
+
+<section class="mod" id="s2">
+  <div class="eyebrow">Session 2</div>
+  <h2>From the street to the socket</h2>
+  <div class="meta">service · meter · panel · circuits · earth</div>
+  <p>Power arrives through the utility's service cable, passes the meter, then the main switch, and lands in the <span class="eu">consumer unit (distribution board)</span><span class="na">service panel (breaker box)</span>. There it splits into circuits, each with its own breaker.</p>
+  <p class="eu">Most of continental Europe supplies either <strong>single-phase 230 V</strong> or <strong>three-phase 400 V</strong> (three live conductors, each 230 V to neutral). Three-phase is common in the Nordics, Germany and rural properties, and it is what large motors, heat pumps and car chargers prefer. The UK and Ireland use the same voltage but different circuit habits (ring circuits, fused plugs).</p>
+  <p class="na">North American homes get <strong>split-phase 120/240 V</strong>: two hot legs and a neutral. Hot to neutral is 120 V for ordinary sockets. Hot to hot is 240 V for the range, dryer, water heater, well pump and car charger.</p>
+
+  <h3>The three wires</h3>
+  <div class="scroll"><table>
+    <tr><th>Wire</th><th>Colour</th><th>Job</th></tr>
+    <tr class="eu"><td>Live (line, L)</td><td><span class="wire" style="background:var(--live)"></span>brown (also black, grey on three-phase)</td><td>Carries current to the load. Dangerous to touch.</td></tr>
+    <tr class="eu"><td>Neutral (N)</td><td><span class="wire" style="background:var(--neutral)"></span>blue</td><td>Carries current back. Near earth voltage, but never trust it.</td></tr>
+    <tr class="eu"><td>Protective earth (PE)</td><td><span class="wire" style="background:var(--earth)"></span>green/yellow</td><td>Carries nothing normally. Gives fault current a safe path so protection trips.</td></tr>
+    <tr class="na"><td>Hot</td><td><span class="wire" style="background:var(--ink)"></span>black, red</td><td>Carries current to the load. Dangerous to touch.</td></tr>
+    <tr class="na"><td>Neutral</td><td><span class="wire" style="background:var(--line)"></span>white</td><td>Carries current back. Near ground voltage, but never trust it.</td></tr>
+    <tr class="na"><td>Ground</td><td><span class="wire" style="background:var(--earth)"></span>bare copper or green</td><td>Carries nothing normally. Gives fault current a safe path so the breaker trips.</td></tr>
+  </table></div>
+  <p class="note">Old houses often predate these colours. Colour is a hint. A tester is the proof.</p>
+
+  <h3>What the devices in the panel do</h3>
+  <ul>
+    <li><strong>Main switch / main breaker.</strong> Isolates the whole house and sets its total limit.</li>
+    <li><strong><span class="eu">MCB (circuit breaker)</span><span class="na">Circuit breaker</span>.</strong> Trips on overload or short circuit. <em>It protects the wire in the wall, not you and not the appliance.</em> Its rating is matched to the wire size.</li>
+    <li class="eu"><strong>RCD (residual current device, FI).</strong> Compares current going out on live with current coming back on neutral. If 30 mA goes missing, perhaps through a person, it trips in a fraction of a second. This is the device that protects people. An RCBO is a breaker and RCD in one.</li>
+    <li class="na"><strong>GFCI.</strong> Compares current going out on hot with current coming back on neutral. If about 5 mA goes missing, perhaps through a person, it trips in a fraction of a second. This is the device that protects people. Required for wet and outdoor locations.</li>
+    <li class="na"><strong>AFCI.</strong> Detects the signature of arcing from damaged wire, a common cause of house fires.</li>
+    <li><strong>Surge protector (SPD).</strong> Diverts lightning and switching spikes to earth. Valuable on rural lines.</li>
+  </ul>
+
+  <h3>Wire size and breaker go together</h3>
+  <div class="scroll"><table>
+    <tr><th>Typical use</th><th>Copper wire</th><th>Breaker</th></tr>
+    <tr class="eu"><td>Lighting</td><td>1.5 mm²</td><td>10 A</td></tr>
+    <tr class="eu"><td>Sockets</td><td>2.5 mm²</td><td>16 A</td></tr>
+    <tr class="eu"><td>Cooker, small EV charger</td><td>6 mm²</td><td>32 A</td></tr>
+    <tr class="eu"><td>Sub-panel, outbuilding</td><td>10 mm²</td><td>40 to 50 A</td></tr>
+    <tr class="na"><td>Lighting, general sockets</td><td>14 AWG</td><td>15 A</td></tr>
+    <tr class="na"><td>Kitchen, bathroom, garage sockets</td><td>12 AWG</td><td>20 A</td></tr>
+    <tr class="na"><td>Dryer, water heater</td><td>10 AWG</td><td>30 A</td></tr>
+    <tr class="na"><td>Range, EV charger</td><td>8 to 6 AWG</td><td>40 to 50 A</td></tr>
+  </table></div>
+  <p class="note">Typical values. Long runs, bundled cables and hot locations need thicker wire, and local code decides. <span class="na">AWG numbers run backwards: a smaller number is a thicker wire.</span></p>
+  <div class="warn"><strong>Never fit a bigger breaker to stop nuisance tripping.</strong> The breaker is sized to the wire. A larger one lets the wire overheat inside the wall before anything trips.</div>
+
+  <div class="try"><h3>Try it</h3><p>Open the panel door (not the cover behind it). Sketch it: main switch rating, each breaker's rating, which ones are <span class="eu">RCDs or RCBOs</span><span class="na">GFCI or AFCI</span>. Then switch breakers off one at a time and walk the house to label what each one feeds. Press the test button on each <span class="eu">RCD</span><span class="na">GFCI</span>. It should trip.</p></div>
+  <details><summary>A toaster's metal case becomes live through a fault. Which wire and which device save you?</summary><p>The earth wire carries the fault current away from the case. That current is missing from the neutral, so the <span class="eu">RCD</span><span class="na">GFCI</span> trips. If the fault is a dead short, the breaker trips too.</p></details>
+  <details><summary>Why can a breaker not protect a person from shock?</summary><p>It trips at tens of amps. A lethal shock is well under one tenth of an amp, far too small for a breaker to notice.</p></details>
+  <div class="quiz" data-quiz="2"></div>
+</section>
+
+<section class="mod" id="s3">
+  <div class="eyebrow">Session 3</div>
+  <h2>How much load can I carry?</h2>
+  <div class="meta">per circuit · whole house · what runs together</div>
+  <p>There are two limits. Each <strong>circuit</strong> has one, and the <strong>whole supply</strong> has one.</p>
+  <div class="formula">capacity (W) = volts × breaker amps</div>
+  <ul class="eu">
+    <li>A 16 A socket circuit: 230 × 16 = <strong>3680 W</strong>. A kettle (2200 W) and a toaster (1000 W) fit. Add a 2000 W heater and it trips.</li>
+    <li>A 10 A lighting circuit: 2300 W, which is a great many LED lamps.</li>
+    <li>Whole house, single-phase 40 A: 9.2 kW. Three-phase 3 × 25 A: about 17 kW, but each phase is limited to 25 A (5.75 kW), so loads must be spread across phases.</li>
+  </ul>
+  <ul class="na">
+    <li>A 15 A circuit: 120 × 15 = <strong>1800 W</strong>. A 20 A circuit: 2400 W.</li>
+    <li>Loads that run three hours or more (heaters, EV charging) are limited to 80 % of the breaker: 1440 W on 15 A, 1920 W on 20 A.</li>
+    <li>Whole house: 100 A service is 24 kW, 200 A service is 48 kW, both at 240 V.</li>
+  </ul>
+  <p><strong>Diversity</strong> is why a house with 40 kW of appliances lives happily on a far smaller supply: they never all run at once. The loads that matter are the big, long-running ones: electric heating, water heater, cooker, heat pump, car charger, sauna, welder.</p>
+  <p><strong>Motors</strong> (pumps, compressors, fridges) draw three to seven times their running current for a moment at start-up. Mains shrugs this off. A small inverter or generator may not, so off-grid systems are sized for surge as well as running watts.</p>
+
+  <div class="tool">
+    <h3>Load check</h3>
+    <p class="note">Example appliances with typical wattages. Tick what might run at the same moment.</p>
+    <div class="fields"><label for="supply">Supply<select id="supply"></select></label></div>
+    <div class="grid" id="apps"></div>
+    <div class="readout" id="loadOut"></div>
+    <div class="meter"><i id="loadBar"></i></div>
+    <p class="note" id="loadNote"></p>
+  </div>
+
+  <div class="try"><h3>Try it</h3><p>Put your own house through the same sum. List every load over 1 kW, mark the ones that can overlap on a cold winter evening, add them, and compare with your main <span class="eu">fuse</span><span class="na">breaker</span>. Then find your daily energy use on a bill (kWh per month ÷ 30). You need that number in session 4.</p></div>
+  <details><summary><span class="eu">Can a 3 kW heater and a 2.2 kW kettle share one 16 A circuit?</span><span class="na">Can a 1500 W heater and a 1200 W microwave share one 15 A circuit?</span></summary><p><span class="eu">No. 5200 W ÷ 230 V = 22.6 A, well over 16 A.</span><span class="na">No. 2700 W ÷ 120 V = 22.5 A, well over 15 A.</span> The breaker will trip after a short while, which is it doing its job.</p></details>
+  <details><summary>Your well pump runs at 1 kW. Why might a 1.5 kW inverter fail to start it?</summary><p>Starting surge. The motor may ask for 3 to 7 kW for a second. The inverter needs a surge rating that covers it, or the pump needs a soft starter.</p></details>
+  <div class="quiz" data-quiz="3"></div>
+</section>
+
+<section class="mod" id="s4">
+  <div class="eyebrow">Session 4</div>
+  <h2>Solar in a household grid</h2>
+  <div class="meta">kWp · sun hours · inverter · self-consumption</div>
+  <p>Panels make DC whenever light hits them. An inverter turns that into AC synchronised with the grid and feeds it into your panel like any other circuit, only backwards. The house uses solar first. Any shortfall comes from the grid, and any surplus flows out through the meter or into a battery.</p>
+
+  <div class="scroll"><svg viewBox="0 0 720 250" width="720" height="250" role="img" aria-label="Solar, wind or hydro and a battery feed a hybrid inverter on DC. The inverter connects on AC to the main panel, which feeds the house loads and connects to the grid through the meter.">
+    <rect class="box" x="20" y="24" width="130" height="46"/><text x="85" y="52" text-anchor="middle">Solar array</text>
+    <rect class="box" x="20" y="100" width="130" height="46"/><text x="85" y="128" text-anchor="middle">Wind / hydro</text>
+    <rect class="box" x="20" y="184" width="130" height="46"/><text x="85" y="212" text-anchor="middle">Battery</text>
+    <rect class="box" x="250" y="88" width="140" height="70"/><text x="320" y="119" text-anchor="middle">Hybrid</text><text x="320" y="136" text-anchor="middle">inverter</text>
+    <rect class="box" x="480" y="88" width="110" height="70"/><text x="535" y="119" text-anchor="middle">Main</text><text x="535" y="136" text-anchor="middle">panel</text>
+    <rect class="box" x="640" y="24" width="64" height="46"/><text x="672" y="52" text-anchor="middle">Loads</text>
+    <rect class="box" x="480" y="190" width="110" height="40"/><text x="535" y="215" text-anchor="middle">Meter</text>
+    <rect class="box" x="640" y="190" width="64" height="40"/><text x="672" y="215" text-anchor="middle">Grid</text>
+    <path class="dc" d="M150 47 H200 V108 H250"/><path class="dc" d="M150 123 H250"/><path class="dc" d="M150 207 H200 V140 H250"/>
+    <path class="ac" d="M390 123 H480"/><path class="ac" d="M590 108 H672 V70"/><path class="ac" d="M535 158 V190"/><path class="ac" d="M590 210 H640"/>
+    <text class="lbl" x="208" y="84">DC</text><text class="lbl" x="424" y="115">AC</text><text class="lbl" x="545" y="178">import / export</text>
+  </svg></div>
+
+  <h3>Three kinds of system</h3>
+  <ul>
+    <li><strong>Grid-tied.</strong> Panels and inverter only. Cheapest. It switches off in a power cut, on purpose, so it cannot electrocute line workers (anti-islanding).</li>
+    <li><strong>Hybrid.</strong> Adds a battery and a backup output. Stores the midday surplus for the evening and can keep chosen circuits alive in a cut.</li>
+    <li><strong>Off-grid.</strong> No utility. Battery and inverter must cover every peak and every dark week, usually with a generator behind them.</li>
+  </ul>
+
+  <h3>The measurements that matter</h3>
+  <div class="scroll"><table>
+    <tr><th>Number</th><th>Meaning</th><th>Interacts with</th></tr>
+    <tr><td>kWp</td><td>Array output under standard test sun (1000 W/m²)</td><td>Sets energy per day together with sun hours</td></tr>
+    <tr><td>Peak sun hours</td><td>Daily sunlight expressed as hours of full test sun. Varies several-fold between summer and winter at high latitudes.</td><td>Site, season, tilt, shade</td></tr>
+    <tr><td>Voc, Vmp</td><td>Panel voltage open-circuit and at maximum power</td><td>Panels in series add voltage. The string's Voc on the coldest day must stay under the inverter's limit, because cold raises voltage.</td></tr>
+    <tr><td>Isc, Imp</td><td>Panel current short-circuit and at maximum power</td><td>Strings in parallel add current. Sets cable and fuse size.</td></tr>
+    <tr><td>Inverter kW</td><td>Maximum AC power at one moment</td><td>Caps what the house can draw from solar and battery at once. Check surge rating for motors.</td></tr>
+    <tr><td>Battery kWh</td><td>Stored energy</td><td>Usable part = kWh × allowed depth of discharge</td></tr>
+    <tr><td>Battery kW (C-rate)</td><td>How fast it can charge or discharge</td><td>A 10 kWh battery at 0.5C delivers 5 kW at most</td></tr>
+  </table></div>
+  <div class="formula">energy per day (kWh) ≈ kWp × peak sun hours × 0.8</div>
+  <p>The 0.8 covers heat, wiring, inverter and dirt. An <strong>MPPT</strong> controller or inverter continuously hunts for the voltage where the panels deliver the most power. A year's yield runs from about 900 kWh per kWp in northern Europe to 1600 or more in sunny climates.</p>
+  <p><strong>Self-consumption</strong> decides the economics. A kWh you use yourself saves the full retail price. A kWh exported usually earns less. Running the water heater, washing and car charging at midday is the cheapest "battery" there is.</p>
+  <div class="warn"><strong>Never plug a generator or inverter into a socket to feed the house.</strong> It energises the line outside and the exposed plug pins. Backup power needs a transfer switch or interlock fitted by an electrician. <span class="eu">Certified plug-in balcony kits are a separate, regulated case with their own limits.</span></div>
+
+  <div class="try"><h3>Try it</h3><p>Take your daily kWh from session 3. Look up peak sun hours for your location in December and in June (PVGIS for Europe, NREL PVWatts for North America). Work out what array would cover your use in June, then see what the same array gives in December.</p></div>
+  <details><summary>A 5 kWp array gets 3.5 peak sun hours. Roughly how much energy that day?</summary><p>5 × 3.5 × 0.8 = 14 kWh.</p></details>
+  <details><summary>The grid fails at noon in bright sun. Why does an ordinary grid-tied house go dark?</summary><p>The inverter must disconnect when it loses the grid, so it does not push power into lines someone may be repairing. Only a hybrid system with an isolated backup output keeps running.</p></details>
+  <div class="quiz" data-quiz="4"></div>
+</section>
+
+<section class="mod" id="s5">
+  <div class="eyebrow">Session 5</div>
+  <h2>Batteries and how to keep them alive</h2>
+  <div class="meta">Ah · state of charge · CCA · charging stages</div>
+  <ul>
+    <li><strong>Capacity</strong> is given in amp-hours. Energy = Ah × V, so a 12 V 100 Ah battery holds about 1.2 kWh.</li>
+    <li><strong>CCA (cold cranking amps)</strong> is what a starter battery can deliver for 30 seconds in deep cold. For a diesel tractor this matters more than Ah.</li>
+    <li><strong>Starter batteries</strong> give a huge burst and want to be full again at once. <strong>Deep-cycle batteries</strong> give modest current for hours. Using a starter battery for storage ruins it quickly.</li>
+  </ul>
+  <h3>Reading a 12 V lead-acid battery</h3>
+  <p>Measure across the terminals after it has rested a few hours with nothing connected.</p>
+  <div class="scroll"><table>
+    <tr><th>Resting voltage</th><th>State of charge</th><th>Meaning</th></tr>
+    <tr><td>12.6 to 12.8 V</td><td>100 %</td><td>Healthy and full</td></tr>
+    <tr><td>12.4 V</td><td>75 %</td><td>Fine, charge soon</td></tr>
+    <tr><td>12.2 V</td><td>50 %</td><td>Charge now. Damage starts if it sits here.</td></tr>
+    <tr><td>12.0 V</td><td>25 %</td><td>Deeply discharged</td></tr>
+    <tr><td>11.8 V or less</td><td>Flat</td><td>Sulfating. May not recover.</td></tr>
+    <tr><td>13.8 to 14.4 V</td><td>Engine running</td><td>Alternator is charging properly</td></tr>
+  </table></div>
+  <p>If the voltage falls below about 9.6 V while cranking, the battery is weak or the cold has beaten it.</p>
+  <h3>Lead-acid care</h3>
+  <ul>
+    <li><strong>Keep it full.</strong> Lead-acid left partly discharged grows hard sulfate crystals and loses capacity for good. This kills more tractor batteries than age does.</li>
+    <li><strong>Use a smart maintainer over winter</strong> on machines that sit. Or disconnect the negative terminal and recharge every month or two.</li>
+    <li><strong>Charge gently:</strong> around a tenth of the Ah rating in amps (10 A for 100 Ah). Good chargers run bulk, absorption (about 14.4 V) and float (about 13.5 V) stages.</li>
+    <li><strong>Flooded cells:</strong> check the level a few times a year and top up with distilled water only, to just above the plates.</li>
+    <li><strong>Clean terminals.</strong> White or green crust adds resistance. Wash with baking soda in water, brush bright, tighten, and smear with terminal grease.</li>
+    <li><strong>For storage batteries,</strong> plan to use only half the capacity. Regular 80 % discharges shorten life a lot.</li>
+    <li><strong>A flat battery freezes</strong> a little below 0 °C. A full one survives deep frost.</li>
+  </ul>
+  <h3>Lithium iron phosphate (LiFePO4)</h3>
+  <p>Now the usual choice for home storage. It tolerates 80 to 90 % depth of discharge, lasts thousands of cycles, does not mind sitting half full, and weighs a third as much. It needs a battery management system (built in on packaged units), and it must not be <em>charged</em> below 0 °C unless it has heating. Its voltage barely changes between 20 % and 90 %, so state of charge comes from the BMS counting amp-hours, not from a multimeter.</p>
+  <div class="warn"><strong>Charging lead-acid releases hydrogen.</strong> Ventilate, keep sparks and flames away, wear eye protection, and remove rings and watches: a wrench across the terminals can deliver hundreds of amps. Never charge or jump a frozen, bulging or cracked battery.</div>
+  <div class="try"><h3>Try it</h3><p>Measure every battery you own: at rest, then with the engine running. Write the date and readings on a piece of tape on each. Repeat in a month. A battery that loses more than 0.1 to 0.2 V in a month with everything off either has a drain on it or is on its way out.</p></div>
+  <details><summary>A tractor battery reads 12.1 V after a week unused. What do you do?</summary><p>It is below half charge. Put it on a proper charger until full, then look for the cause: short runs, a parasitic drain, a failing alternator (check for 13.8 to 14.4 V running) or an old battery.</p></details>
+  <details><summary>How much usable energy is in a 24 V 200 Ah lead-acid bank?</summary><p>24 × 200 = 4.8 kWh nominal, about 2.4 kWh if you keep to 50 % depth of discharge.</p></details>
+  <div class="quiz" data-quiz="5"></div>
+</section>
+
+<section class="mod" id="s6">
+  <div class="eyebrow">Session 6</div>
+  <h2>Jump starting a tractor</h2>
+  <div class="meta">check voltage · connect in order · start from the seat</div>
+  <h3>Before any cable comes out</h3>
+  <ul>
+    <li><strong>Match the system voltage.</strong> Most tractors are 12 V. Larger ones may be 24 V (two 12 V batteries in series). Vintage ones may be 6 V. Only jump like to like. Read the battery labels and the manual.</li>
+    <li><strong>Check polarity.</strong> Some older tractors are positive-earth: the positive terminal goes to the chassis. Go by the + and − marked on the batteries, never by cable colour or habit.</li>
+    <li><strong>Look at the dead battery.</strong> Frozen, cracked, leaking or bulging means stop and replace it.</li>
+    <li><strong>Use heavy cables.</strong> A diesel starter draws several hundred amps. Thin car cables get hot and do nothing. Look for 25 mm² (about 4 AWG) or thicker with solid clamps.</li>
+    <li><strong>Make the tractor safe:</strong> neutral or park, handbrake on, PTO off, hydraulics lowered. The two machines must not touch.</li>
+  </ul>
+  <h3>The order (negative-earth 12 V, the usual case)</h3>
+  <ol>
+    <li>Both machines off, keys out.</li>
+    <li>Red clamp to the <strong>dead</strong> battery's positive (+).</li>
+    <li>Other red clamp to the <strong>donor</strong> battery's positive (+).</li>
+    <li>Black clamp to the <strong>donor</strong> battery's negative (−).</li>
+    <li>Last black clamp to <strong>clean bare metal on the tractor's engine block or frame</strong>, well away from the battery and fuel lines. This last connection sparks, and you want that spark far from any hydrogen.</li>
+    <li>Start the donor and let it run a few minutes so the dead battery takes some charge.</li>
+    <li>Sit in the tractor seat and start it normally. Use the glow plugs as usual. Crank for 10 to 15 seconds at most, then rest a minute.</li>
+    <li>Once it runs, remove the clamps in exact reverse order: tractor frame, donor negative, donor positive, tractor positive. Do not let clamps touch each other.</li>
+  </ol>
+  <div class="warn"><strong>Start from the seat, every time.</strong> Never bridge the starter terminals with a screwdriver while standing beside the tractor. That bypasses the neutral safety switch, and a tractor left in gear will start and drive over you. It is one of the classic fatal farm accidents.</div>
+  <h3>Afterwards</h3>
+  <ul>
+    <li>Run the engine at a fast idle for half an hour or more, or better, put the battery on a charger overnight. An alternator is made to top up a battery, not to refill a flat one.</li>
+    <li>Find out why it went flat: session 5's checks.</li>
+    <li>On 24 V machines and modern tractors with electronic controllers, follow the manual's jump points exactly. Never put a 12 V donor across a 24 V pair.</li>
+    <li>A lithium jump pack rated for diesel engines is a good thing to keep in the shed. Same clamp order.</li>
+  </ul>
+  <div class="try"><h3>Try it</h3><p>On a day when nothing is wrong: find the tractor's battery, read its voltage, Ah and CCA, confirm which terminal is bolted to the frame, and pick the bare-metal point you would use for the last clamp. Check your cables are heavy enough. Rehearse the order aloud.</p></div>
+  <details><summary>Why does the last clamp go on the engine block and not the dead battery's negative post?</summary><p>The final connection completes the circuit and makes a spark. A battery that has been cranked or charged may be venting hydrogen. Sparking a metre away on the block avoids igniting it.</p></details>
+  <details><summary>The tractor has two 12 V batteries. How do you tell whether it is a 12 V or 24 V system?</summary><p>Follow the link cable. Positive to positive and negative to negative is parallel: still 12 V, more capacity. Positive of one to negative of the other is series: 24 V. Confirm with a meter across the two outer terminals and with the manual.</p></details>
+  <div class="quiz" data-quiz="6"></div>
+</section>
+
+<section class="mod" id="s7">
+  <div class="eyebrow">Session 7</div>
+  <h2>Wind and micro-hydro</h2>
+  <div class="meta">wind speed cubed · head × flow · diversion loads</div>
+  <h3>Wind</h3>
+  <div class="formula">power (W) = ½ × 1.225 × rotor area (m²) × wind speed³ (m/s) × efficiency</div>
+  <ul>
+    <li><strong>Speed is cubed.</strong> A site with 6 m/s has more than twice the energy of one with 4.5 m/s. A slightly better site beats a much bigger turbine.</li>
+    <li><strong>Area, not rated watts, tells you the size.</strong> Double the rotor diameter, four times the swept area. Rated power is quoted at a wind speed you will seldom see.</li>
+    <li><strong>Height and clean air.</strong> Trees and roofs make turbulence that wrecks output and bearings. The usual rule is a hub 10 m above anything within 150 m. Roof-mounted turbines almost never pay.</li>
+    <li>You want an annual mean of 5 m/s or more at hub height. Measure for a season before you buy.</li>
+    <li>Small turbines commonly deliver 10 to 20 % of their rated power averaged over a year.</li>
+  </ul>
+  <h3>Micro-hydro</h3>
+  <div class="formula">power (W) ≈ 9.81 × head (m) × flow (L/s) × efficiency &nbsp;≈&nbsp; 5 × head × flow</div>
+  <ul>
+    <li><strong>Head</strong> is the vertical drop from intake to turbine. <strong>Flow</strong> is how much water you can take. They trade off: lots of head needs little water (Pelton, Turgo wheels), low head needs lots (crossflow, propeller types).</li>
+    <li><strong>It runs all day and all night.</strong> 20 m of head and 5 L/s gives about 500 W. That is 12 kWh a day, as much as a 3 to 4 kWp solar array in good weather, and it keeps going in January.</li>
+    <li>Measure flow at the driest time of year, and leave water in the stream. Abstraction usually needs a permit.</li>
+    <li>The pipe (penstock) is most of the cost. Friction in an undersized pipe eats head.</li>
+  </ul>
+  <h3>How they join the household system</h3>
+  <ul>
+    <li>Both make "wild" AC that is rectified to DC and fed to the battery through a controller, or to a grid-tie inverter built for the purpose. On the diagram in session 4 they sit beside the solar array.</li>
+    <li><strong>They must always have a load.</strong> A solar panel can simply be switched off. A spinning turbine with nowhere to send power overspeeds. So wind and hydro use a <strong>diversion (dump) load</strong>: when the battery is full, surplus goes to a water or air heater.</li>
+    <li><strong>They complement solar.</strong> Sun peaks in summer and at midday. Wind and stream flow in temperate climates peak in winter and do not stop at night. A mix needs far less battery than solar alone.</li>
+  </ul>
+  <div class="tool">
+    <h3>Rough daily yield</h3>
+    <p class="note">Example figures. Change them to your site. Order-of-magnitude only.</p>
+    <div class="fields">
+      <label for="g-use">House use, kWh/day<input id="g-use" type="number" min="0" step="1" value="12"></label>
+      <label for="g-kwp">Solar, kWp<input id="g-kwp" type="number" min="0" step="0.5" value="4"></label>
+      <label for="g-sun">Peak sun hours<input id="g-sun" type="number" min="0" step="0.5" value="3"></label>
+      <label for="g-head">Hydro head, m<input id="g-head" type="number" min="0" step="1" value="15"></label>
+      <label for="g-flow">Hydro flow, L/s<input id="g-flow" type="number" min="0" step="0.5" value="3"></label>
+      <label for="g-dia">Wind rotor diameter, m<input id="g-dia" type="number" min="0" step="0.5" value="3"></label>
+      <label for="g-wind">Mean wind, m/s<input id="g-wind" type="number" min="0" step="0.5" value="5"></label>
+    </div>
+    <div class="rows" id="genRows"></div>
+    <p class="readout" id="genOut" style="margin-top:.8rem"></p>
+    <p class="note">Solar: kWp × hours × 0.8. Hydro: 9.81 × head × flow × 0.55. Wind: formula above at 20 % overall efficiency, × 1.9 because gusts carry more energy than the mean speed suggests. Try halving the wind speed or the sun hours and watch what changes most.</p>
+  </div>
+  <details><summary>Wind speed rises from 4 to 8 m/s. How much more power is in the wind?</summary><p>Eight times. Power follows the cube of speed: 2³ = 8.</p></details>
+  <details><summary>Why does a hydro turbine need a dump load when a solar array does not?</summary><p>Disconnecting a panel just leaves it sitting at open-circuit voltage. Unloading a turbine lets it run away to dangerous speed and voltage, so surplus power must always have somewhere to go.</p></details>
+  <div class="quiz" data-quiz="7"></div>
+</section>
+
+<section class="mod" id="s8">
+  <div class="eyebrow">Session 8</div>
+  <h2>Put it together: audit your own place</h2>
+  <div class="meta">one page, your numbers</div>
+  <p>Write a single page about your own property. If you can fill in every line, you have the basics.</p>
+  <ol>
+    <li><strong>Supply.</strong> Voltage, single or three-phase, main <span class="eu">fuse</span><span class="na">breaker</span> rating, and the kW that gives you.</li>
+    <li><strong>Panel map.</strong> Every circuit, its breaker, what it feeds, and whether it has <span class="eu">RCD</span><span class="na">GFCI</span> protection.</li>
+    <li><strong>Big loads.</strong> Everything over 1 kW, its amps, and which can overlap. Your worst realistic peak in kW.</li>
+    <li><strong>Energy.</strong> kWh per day in summer and in winter, from bills.</li>
+    <li><strong>Resources.</strong> Peak sun hours in June and December. Mean wind speed if you have a candidate site. Head and dry-season flow if you have a stream.</li>
+    <li><strong>A paper system.</strong> The mix of kWp, wind and hydro that would cover an average winter day, the battery kWh to bridge one night, and the inverter kW to carry your peak with motor surge.</li>
+    <li><strong>Batteries.</strong> Every one you own, with resting voltage, date and a winter plan.</li>
+  </ol>
+  <p>Take that page to an electrician or installer. You will be able to ask sharper questions, and judge the answers.</p>
+</section>
+
+</main>
+
+<footer><div class="wrap">Figures here are typical values for learning. Wiring rules differ by country and change over time. Your local code and a licensed electrician have the final word on anything you build.</div></footer>
+</div>
+
+<script>
+(function(){
+  var app=document.getElementById('app'), $=function(id){return document.getElementById(id)};
+  var V={eu:230,na:240};
+  var supplies={
+    eu:[['Single-phase 25 A',5750],['Single-phase 40 A',9200],['Three-phase 3 × 16 A',11040],['Three-phase 3 × 25 A',17250],['Three-phase 3 × 35 A',24150]],
+    na:[['100 A service',24000],['150 A service',36000],['200 A service',48000]]
+  };
+  var apps=[
+    ['LED lighting, whole house',150,150,1],['Fridge and freezer',250,250,1],['Kettle',2200,1500,0],['Oven and hob',7000,9000,0],
+    ['Washing machine (heating)',2100,1200,0],['Tumble dryer',2500,5000,0],['Water heater',3000,4500,1],['Heat pump',3000,4000,1],
+    ['Well pump',1100,1100,0],['Electric space heater',2000,1500,0],['EV charger',7400,7700,0],['Welder',4500,6000,0]
+  ];
+  var circuit={eu:3680,na:1800};
+  function region(){return app.dataset.region}
+  function build(){
+    var r=region(), s=$('supply'); s.innerHTML='';
+    supplies[r].forEach(function(o,i){var e=document.createElement('option');e.value=o[1];e.textContent=o[0]+' ('+(o[1]/1000).toFixed(1)+' kW)';if(i===(r==='na'?2:1))e.selected=true;s.appendChild(e)});
+    var g=$('apps'), was={}; g.querySelectorAll('input').forEach(function(c){was[c.id]=c.checked}); g.innerHTML='';
+    apps.forEach(function(a,i){var w=a[r==='eu'?1:2], id='app-'+i, on=(id in was)?was[id]:!!a[3];
+      var l=document.createElement('label'); l.htmlFor=id;
+      l.innerHTML='<input type="checkbox" id="'+id+'" data-w="'+w+'"'+(on?' checked':'')+'>'+a[0]+'<span>'+w+' W</span>'; g.appendChild(l)});
+    calc();
+  }
+  function calc(){
+    var r=region(), cap=+$('supply').value, tot=0, big=0;
+    $('apps').querySelectorAll('input:checked').forEach(function(c){var w=+c.dataset.w; tot+=w; if(w>circuit[r])big++});
+    var pct=tot/cap*100, three=r==='eu'&&$('supply').selectedOptions[0].textContent.indexOf('Three')===0;
+    var amps=three?tot/(3*230):tot/V[r];
+    $('loadOut').textContent=(tot/1000).toFixed(1)+' kW of '+(cap/1000).toFixed(1)+' kW  ·  '+amps.toFixed(0)+' A'+(three?' per phase if perfectly balanced':(r==='na'?' at 240 V':''))+'  ·  '+pct.toFixed(0)+' %';
+    var b=$('loadBar'); b.style.width=Math.min(pct,100)+'%'; b.className=pct>100?'hot':'';
+    $('loadNote').textContent=(pct>100?'Over the limit. The main would trip, so something has to wait its turn or the supply needs upgrading. ':pct>80?'Close to the limit. Fine briefly, tight for long-running loads. ':'Within the supply. ')+(big?big+' of the ticked loads exceed an ordinary '+(r==='eu'?'16 A socket circuit (3680 W)':'15 A circuit (1800 W)')+' and need their own dedicated circuit.':'');
+  }
+  function gen(){
+    var n=function(id){return Math.max(0,+$(id).value||0)};
+    var sol=n('g-kwp')*n('g-sun')*0.8;
+    var hyd=9.81*n('g-head')*n('g-flow')*0.55*24/1000;
+    var d=n('g-dia'), v=n('g-wind'), win=0.5*1.225*Math.PI*d*d/4*v*v*v*0.2*1.9*24/1000;
+    var use=n('g-use'), rows=[['Solar',sol],['Hydro',hyd],['Wind',win]], max=Math.max(use,sol,hyd,win,0.1);
+    $('genRows').innerHTML=rows.map(function(x){return '<span>'+x[0]+'</span><div class="meter"><i style="width:'+(x[1]/max*100)+'%"></i></div><b>'+x[1].toFixed(1)+' kWh</b>'}).join('');
+    var tot=sol+hyd+win;
+    $('genOut').textContent='Total '+tot.toFixed(1)+' kWh/day against '+use.toFixed(0)+' used'+(use?'  ·  '+(tot/use*100).toFixed(0)+' % covered':'');
+  }
+  var RG='<span class="eu">RCD</span><span class="na">GFCI</span>';
+  var QUIZ={
+    1:[
+      {q:'Your electricity bill charges you for…',o:['Kilowatts (kW)','Kilowatt-hours (kWh)','Amps','Volts'],a:1,e:'kWh is the amount of energy used. kW is only how fast you are using it at one moment.'},
+      {q:'The current in a wire doubles. The heat produced in the wire…',o:['Stays the same','Doubles','Halves','Goes up four times'],a:3,e:'Heat follows current squared (I² × R). This is why every wire has an amp limit.'},
+      {q:'A 1200 W load running from a 12 V battery draws about…',o:['100 A','10 A','14 A','1200 A'],a:0,e:'I = P ÷ V = 1200 ÷ 12 = 100 A. Low voltage means big current and thick cable.'}
+    ],
+    2:[
+      {q:'What is a circuit breaker mainly there to protect?',o:['People from electric shock','The appliance plugged in','The wire in the wall from overheating','The utility\'s meter'],a:2,e:'It is sized to the wire. Protecting people is the job of the '+RG+'.'},
+      {q:'Which device trips when a small current leaks to earth, for example through a person?',o:['The '+RG,'The main switch','An ordinary breaker','The surge protector'],a:0,e:'It compares current out with current back and trips on a tiny difference.'},
+      {q:'A breaker keeps tripping when two heaters run. The right response is…',o:['Fit a larger breaker','Hold it on with tape','Swap it for a newer one of the same size','Move a heater to another circuit and check for a fault'],a:3,e:'The circuit is overloaded. A bigger breaker would let the wire overheat inside the wall.'}
+    ],
+    3:[
+      {q:'"Diversity" in load planning means…',o:['Using several energy sources','Appliances do not all run at the same time','Spreading sockets around the house','Mixing wire sizes'],a:1,e:'It is why total appliance wattage can far exceed the supply without trouble.'},
+      {q:'Which load is most likely to defeat a small inverter at switch-on?',o:['A 1 kW well pump','A 1 kW kettle','LED lighting','A laptop charger'],a:0,e:'Motors pull 3 to 7 times their running current for a moment when starting.'},
+      {q:'Which loads matter most when judging whether your supply is big enough?',o:['Phone and laptop chargers','The number of sockets','Big long-running ones: heating, water heater, EV charger','LED lighting'],a:2,e:'They are large and they overlap for hours. Small loads barely register.'}
+    ],
+    4:[
+      {q:'A grid-tied system with no battery, during a power cut on a sunny day…',o:['Powers the house as normal','Powers only the lights','Feeds the neighbours','Shuts down'],a:3,e:'Anti-islanding: the inverter must disconnect so it cannot energise lines under repair.'},
+      {q:'On a very cold, bright morning a panel\'s voltage is…',o:['Lower than usual','Higher than usual','Unchanged','Zero until it warms up'],a:1,e:'Cold raises voltage. Strings are sized so the coldest-day Voc stays under the inverter limit.'},
+      {q:'Which use of a solar kWh usually saves the most money?',o:['Using it yourself as it is produced','Exporting it to the grid','Storing it, then exporting at night','Leaving it unused'],a:0,e:'It replaces a kWh bought at full retail price. Export usually pays less.'}
+    ],
+    5:[
+      {q:'A rested 12 V lead-acid battery reads 12.2 V. It is…',o:['Full','Overcharged','About half charged','Completely flat'],a:2,e:'12.6 to 12.8 V is full. At 12.2 V it needs charging now.'},
+      {q:'What shortens a lead-acid battery\'s life the most?',o:['A smart maintainer over winter','Sitting partly discharged for weeks','Charging at a tenth of its Ah rating','Topping up with distilled water'],a:1,e:'Sulfate hardens on the plates and capacity is lost for good.'},
+      {q:'A LiFePO4 battery must not be…',o:['Stored half full','Discharged past 50 %','Fitted with a BMS','Charged below freezing'],a:3,e:'Charging below 0 °C damages the cells unless the pack has heating. Discharging in the cold is fine.'}
+    ],
+    6:[
+      {q:'Where does the last jump lead clamp go?',o:['Bare metal on the dead machine\'s engine block or frame','The dead battery\'s negative post','The donor battery\'s positive post','The donor vehicle\'s bumper'],a:0,e:'The final connection sparks. Keep that spark away from the battery, which may be venting hydrogen.'},
+      {q:'From where do you start the tractor?',o:['Standing beside it, bridging the starter','From the donor vehicle','Sitting in the seat, in neutral, with the key','Anywhere, if the handbrake is on'],a:2,e:'Bridging the starter bypasses the neutral safety switch. A tractor in gear will run you over.'},
+      {q:'The tractor is 24 V and the only donor is a 12 V car. You…',o:['Clamp across both tractor batteries','Clamp across one of the two batteries','Run the car at high revs first','Do not jump it. Use a 24 V source or charge the batteries.'],a:3,e:'Mixing voltages can wreck electronics and batteries. Follow the manual.'}
+    ],
+    7:[
+      {q:'Wind speed doubles. The power available goes up…',o:['2 times','4 times','8 times','16 times'],a:2,e:'Power follows the cube of wind speed: 2 × 2 × 2.'},
+      {q:'A stream offers 10 m of head and 4 L/s. Roughly how much power?',o:['20 W','200 W','2 kW','20 kW'],a:1,e:'About 5 × head × flow = 5 × 10 × 4 = 200 W, which is nearly 5 kWh every day.'},
+      {q:'The battery is full and the hydro turbine is still spinning. Where does the power go?',o:['To a diversion load such as a water heater','Nowhere, the turbine idles safely','Back up the pipe','Into the battery anyway'],a:0,e:'A turbine with no load overspeeds, so surplus is always sent somewhere useful.'}
+    ]
+  };
+  function renderQuiz(box){
+    var qs=QUIZ[box.dataset.quiz], done=0, good=0;
+    box.innerHTML='<h3>Quick quiz</h3>';
+    var score=document.createElement('div'); score.className='score';
+    qs.forEach(function(item){
+      var q=document.createElement('div'); q.className='q'; q.innerHTML='<p>'+item.q+'</p>';
+      var opts=document.createElement('div'); opts.className='opts';
+      item.o.forEach(function(text,i){
+        var b=document.createElement('button'); b.type='button'; b.innerHTML=text;
+        b.onclick=function(){
+          opts.querySelectorAll('button').forEach(function(x,j){x.disabled=true; if(j===item.a)x.className='right'});
+          if(i!==item.a)b.className='wrong'; else good++;
+          var w=document.createElement('p'); w.className='why'; w.innerHTML=item.e; q.appendChild(w);
+          done++; if(done===qs.length){score.innerHTML='<span>'+good+' of '+qs.length+' correct</span>';
+            var again=document.createElement('button'); again.type='button'; again.textContent='Try again'; again.onclick=function(){renderQuiz(box)}; score.appendChild(again)}
+        };
+        opts.appendChild(b);
+      });
+      q.appendChild(opts); box.appendChild(q);
+    });
+    box.appendChild(score);
+  }
+  document.querySelectorAll('.quiz').forEach(renderQuiz);
+  function setRegion(r){
+    app.dataset.region=r; $('r-eu').setAttribute('aria-pressed',r==='eu'); $('r-na').setAttribute('aria-pressed',r==='na');
+    build();
+  }
+  function pick(r){try{localStorage.setItem('mains',r)}catch(e){} setRegion(r)}
+  $('r-eu').onclick=function(){pick('eu')}; $('r-na').onclick=function(){pick('na')};
+  $('supply').onchange=calc; $('apps').onchange=calc;
+  ['g-use','g-kwp','g-sun','g-head','g-flow','g-dia','g-wind'].forEach(function(id){$(id).oninput=gen});
+  var saved=null; try{saved=localStorage.getItem('mains')}catch(e){}
+  setRegion(saved==='eu'?'eu':'na'); gen();
+})();
+</script>
+</body>
+</html>

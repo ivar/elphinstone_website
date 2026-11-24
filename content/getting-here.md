@@ -5,7 +5,7 @@ description: "How to reach Elphinstone Farm on the Sunshine Coast of BC — ferr
 map:
   lat: "49.44849"
   lon: "-123.48953"
-  zoom: "13"
+  zoom: "19"
 ---
 
 Elphinstone Farm is at **1900 Port Mellon Highway, Gibsons, BC** - located just north of the Langdale ferry terminal on the Sunshine Coast of British Columbia — about 50 km northwest of Vancouver, accessible by ferry.
@@ -28,7 +28,7 @@ Additional options include chartering a water taxi from [Sunshine Coast Water Ta
 
 ## From Langdale to Elphinstone Farm
 
-From Langdale, the farm is approximately a 2 minute drive (15 minute bike, 40 minute walk) along the Sunshine Coast Highway (Hwy 101) towards Port Mellon. We have a farm minivan that we use for transporting groups so get in touch if you'd like a lift!
+From Langdale, the farm is approximately a 2 minute drive (15 minute bike, 40 minute walk) along the Sunshine Coast Highway (Hwy 101) towards Port Mellon. 
 
 ## Getting Around
 

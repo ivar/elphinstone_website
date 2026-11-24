@@ -18,3 +18,10 @@ learnTitle: "The idea behind it"
 # updates: see the example format in syntropic-agroforestry/index.md
 updates: []
 ---
+
+We're taking soil building seriously as soil is the foundation of any kind of agriculture. We took the "Regenerative Soil Health" four day workshop via RootShoots
+
+
+
+### Resources
+* [Root Shoot Soils](https://www.rootshootsoils.com/) - Jo Tobias (owner / consultant) is a wonderful instructor and effective soil microbiology wizard!

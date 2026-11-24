@@ -1,6 +1,10 @@
 {{ define "main" }}
 {{ $color := .Params.color | default "primary" }}
 {{ $updates := sort (.Params.updates | default slice) "date" "desc" }}
+{{/* Open tasks from our task tracker (data/tasks.json, see scripts/fetch-tasks.mjs). */}}
+{{ $tasks := slice }}
+{{ with site.Data.tasks }}{{ $tasks = index . $.File.ContentBaseName | default slice }}{{ end }}
+{{ $tasksShown := 6 }}
 <div class="min-h-screen flex flex-col">
   <div class="bg-linear-to-b from-white to-[#e3e6e7] flex-1">
     {{ partial "page-header.html" . }}
@@ -34,12 +38,25 @@
           </div>
           {{ end }}
 
+          {{ range .Params.courses }}
+          <a href="{{ .url }}" class="card bg-base-100 shadow-md transition hover:shadow-xl hover:-translate-y-0.5">
+            <div class="card-body gap-2">
+              <span class="text-xs font-bold uppercase tracking-wider text-primary/70">Free course</span>
+              <h2 class="card-title text-primary text-lg">{{ partial "icon.html" "book" }} {{ .title }}</h2>
+              {{ with .meta }}<p class="text-xs font-semibold opacity-70">{{ . }}</p>{{ end }}
+              {{ with .text }}<p class="text-sm">{{ . }}</p>{{ end }}
+              <span class="btn btn-primary btn-sm self-start mt-1">Start the course →</span>
+            </div>
+          </a>
+          {{ end }}
+
           <div class="card bg-base-100 shadow-sm">
             <div class="card-body gap-3">
               <h2 class="card-title text-primary text-lg">At a glance</h2>
               <dl class="grid grid-cols-[auto_1fr] gap-x-4 gap-y-2 text-sm">
                 {{ with .Params.status }}<dt class="font-semibold">Stage</dt><dd>{{ . }}</dd>{{ end }}
                 {{ with .Params.started }}<dt class="font-semibold">Started</dt><dd>{{ (time .).Format "January 2006" }}</dd>{{ end }}
+                {{ with len $tasks }}<dt class="font-semibold">Open tasks</dt><dd><a href="#next-tasks" class="underline underline-offset-4">{{ . }}</a></dd>{{ end }}
                 <dt class="font-semibold">Updates</dt><dd>{{ len $updates }}</dd>
                 {{ with index $updates 0 }}<dt class="font-semibold">Latest</dt><dd>{{ (time .date).Format "January 2, 2006" }}</dd>{{ end }}
               </dl>
@@ -60,6 +77,23 @@
           <section>
             <h2 class="text-2xl font-bold text-primary mb-2">{{ $.Params.learnTitle | default "The idea behind it" }}</h2>
             <div class="page-content">{{ . }}</div>
+          </section>
+          {{ end }}
+
+          {{ if $tasks }}
+          <section id="next-tasks">
+            <h2 class="text-2xl font-bold text-primary mb-2">Next tasks</h2>
+            <p class="text-sm opacity-70 mb-4">Straight from the farm's task list.</p>
+            <ul class="rounded-box bg-base-100 shadow-sm divide-y divide-base-300">
+              {{ range first $tasksShown $tasks }}
+              <li class="flex flex-wrap items-baseline gap-x-3 gap-y-1 px-5 py-3">
+                <span class="flex-1 min-w-48">{{ .title }}</span>
+                {{ with .priority }}<span class="badge badge-{{ $color }} badge-sm">{{ . }} priority</span>{{ end }}
+                {{ with .due }}{{ if ge (time .) now }}<time datetime="{{ . }}" class="text-sm opacity-70">by {{ (time .).Format "January 2" }}</time>{{ end }}{{ end }}
+              </li>
+              {{ end }}
+            </ul>
+            {{ with sub (len $tasks) $tasksShown }}{{ if gt . 0 }}<p class="text-sm opacity-70 mt-3">…and {{ . }} more on the list.</p>{{ end }}{{ end }}
           </section>
           {{ end }}
 

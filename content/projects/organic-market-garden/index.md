@@ -17,6 +17,8 @@ location:
 # coverAlt: "Describe the cover photo"
 # intention:
 #   - "Why we're doing this."
+# Open tasks from tasks.elphinstone.farm shown under "Next tasks" (see scripts/fetch-tasks.mjs).
+openproject: ["outdoor-market-garden"]
 learnTitle: "The idea behind it"
 # updates: see the example format in syntropic-agroforestry/index.md
 updates: []

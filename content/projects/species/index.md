@@ -1,7 +1,7 @@
 ---
 title: "Species Identified on the Property"
 date: 2026-11-14
-weight: 13
+weight: 14
 layout: "species"
 color: "secondary"
 icon: "search"

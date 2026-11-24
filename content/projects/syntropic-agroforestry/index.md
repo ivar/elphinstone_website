@@ -17,6 +17,8 @@ location:
 intention:
   - "Our test plots explore combinations of canopy trees, shrubs, groundcovers, and root crops suited to the coastal BC climate."
   - "We're documenting soil health, canopy development, and yield over time — with the goal of sharing open-source growing guides for the Salish Sea bioregion."
+# Open tasks from tasks.elphinstone.farm shown under "Next tasks" (see scripts/fetch-tasks.mjs).
+openproject: ["syntropic-food-forest-1", {"project": "orchard-and-food-forest-systems", "match": "food forest"}]
 learnTitle: "The idea behind it"
 
 # ── Progress updates ──────────────────────────────────────────
