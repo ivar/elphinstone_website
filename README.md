@@ -76,13 +76,13 @@ By default the photo is the Sunshine Coast Regional District's 2024 aerial photo
 
 ### Password-protected course
 
-The Home Power Basics course at `/projects/agrivoltaics-and-power/home-power-basics/` asks for a password. Because this repository is public, the readable course is kept out of it:
+The Home Power Basics course at `/projects/agrivoltaics-and-power/home-power-basics/` asks for a password. This is to stop casual browsing, not to keep a secret: the readable course is in this repository.
 
-- **Readable course:** `private/courses/home-power-basics.html` (gitignored). Edit this one.
+- **Readable course:** `courses/home-power-basics.html`. Edit this one.
 - **Published page:** `static/projects/agrivoltaics-and-power/home-power-basics/index.html`, the encrypted course plus a password form. Never edit it by hand.
-- **Password:** `COURSE_PASSWORD` in `.env.local` (or the environment).
+- **Password:** `COURSE_PASSWORD` in `.env.local` (or the environment). It is not stored in the repository.
 
-After editing the course, run `npm run course` and commit the changed page in `static/`. On a fresh clone, put the password in `.env.local` and run `npm run course -- --decrypt` to get the readable file back. To change the password, change it in `.env.local` and run `npm run course` again. Anyone can download the encrypted page and try passwords against it, so keep the password a long phrase.
+After editing the course, run `npm run course` and commit both files. To change the password, change it in `.env.local` and run `npm run course` again.
 
 ### Next tasks
 
