@@ -6,7 +6,8 @@
     "dev": "concurrently \"tailwindcss -i ./assets/css/style.css -o ./static/css/style.css --watch\" \"hugo server --bind 0.0.0.0\"",
     "species": "node scripts/fetch-species.mjs",
     "tasks": "node scripts/fetch-tasks.mjs",
-    "build": "npm run species && npm run tasks && tailwindcss -i ./assets/css/style.css -o ./static/css/style.css && hugo"
+    "course": "node scripts/encrypt-course.mjs",
+    "build": "npm run species && npm run tasks && npm run course && tailwindcss -i ./assets/css/style.css -o ./static/css/style.css && hugo"
   },
   "dependencies": {
     "@fontsource-variable/fraunces": "^5.2.9",

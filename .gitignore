@@ -29,3 +29,6 @@ resources/_gen
 # claude detritus
 .claude/
 
+
+# The readable course pages; only their encrypted versions are published (scripts/encrypt-course.mjs)
+private/

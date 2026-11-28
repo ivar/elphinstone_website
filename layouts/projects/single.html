@@ -41,7 +41,7 @@
           {{ range .Params.courses }}
           <a href="{{ .url }}" class="card bg-base-100 shadow-md transition hover:shadow-xl hover:-translate-y-0.5">
             <div class="card-body gap-2">
-              <span class="text-xs font-bold uppercase tracking-wider text-primary/70">Free course</span>
+              <span class="text-xs font-bold uppercase tracking-wider text-primary/70">{{ if .locked }}Course · password needed{{ else }}Free course{{ end }}</span>
               <h2 class="card-title text-primary text-lg">{{ partial "icon.html" "book" }} {{ .title }}</h2>
               {{ with .meta }}<p class="text-xs font-semibold opacity-70">{{ . }}</p>{{ end }}
               {{ with .text }}<p class="text-sm">{{ . }}</p>{{ end }}

@@ -74,6 +74,16 @@ By default the photo is the Sunshine Coast Regional District's 2024 aerial photo
 
 `/projects/species/` lists every species recorded on [iNaturalist](https://www.inaturalist.org/) inside the property boundary (`data/property_boundary.json`). `npm run build` refreshes it; `npm run species` refreshes just the data file, `data/species.json`. That file is committed so the page still builds if iNaturalist is unreachable. To add a species, post an observation on iNaturalist from the property; it appears after the next build once it is identified to species.
 
+### Password-protected course
+
+The Home Power Basics course at `/projects/agrivoltaics-and-power/home-power-basics/` asks for a password. Because this repository is public, the readable course is kept out of it:
+
+- **Readable course:** `private/courses/home-power-basics.html` (gitignored). Edit this one.
+- **Published page:** `static/projects/agrivoltaics-and-power/home-power-basics/index.html`, the encrypted course plus a password form. Never edit it by hand.
+- **Password:** `COURSE_PASSWORD` in `.env.local` (or the environment).
+
+After editing the course, run `npm run course` and commit the changed page in `static/`. On a fresh clone, put the password in `.env.local` and run `npm run course -- --decrypt` to get the readable file back. To change the password, change it in `.env.local` and run `npm run course` again. Anyone can download the encrypted page and try passwords against it, so keep the password a long phrase.
+
 ### Next tasks
 
 Project pages can list their open tasks from our task tracker, [OpenProject](https://tasks.elphinstone.farm). Add the tracker project's identifier (the last part of its URL) to the page's front matter, e.g. `openproject: ["blueberry-fields"]`; subprojects are included. `tasksMatch: "apple"` keeps only tasks whose title matches, `tasksExclude` drops them. `npm run build` refreshes the lists; `npm run tasks` refreshes just the data file, `data/tasks.json`. Both need an OpenProject API token as `OPENPROJECT_TOKEN`, in the environment or in a `.env.local` file; without one the committed file is used as is. Only task titles, priorities and dates are published, and only for projects a page asks for, so keep titles fit for the public.

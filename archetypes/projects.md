@@ -21,6 +21,7 @@ intention:
 #     meta: "Eight short sessions"
 #     text: "What it covers."
 #     url: "/projects/<slug>/<course>/"
+#     locked: true   # optional: label the card as password protected (see scripts/encrypt-course.mjs)
 # openproject: ["project-identifier"]   # optional: show this OpenProject project's open tasks under "Next tasks" (subprojects included)
 # tasksMatch: "apple"                   # optional: only tasks whose title matches; tasksExclude does the opposite
 learnTitle: "The idea behind it"

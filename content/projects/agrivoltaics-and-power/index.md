@@ -17,10 +17,11 @@ summary: "Growing food and generating electricity on the same ground, and learni
 # Course cards shown in the sidebar. The course itself is a standalone page in
 # static/projects/agrivoltaics-and-power/home-power-basics/index.html.
 courses:
-  - title: "Home Power Basics"
-    meta: "Eight short sessions · about 20 minutes each"
+  - title: "Farm Power Basics"
+    meta: "A mini primer - cocreated with an LLM"
     text: "A light course I created with an LLM to help me understand domestic and farm electricity - what the numbers mean, how panels and wiring are organised, how much load a house can carry, where solar, wind and water fit, and how to look after batteries and jump start a tractor."	
     url: "/projects/agrivoltaics-and-power/home-power-basics/"
+    locked: true   # the page asks for a password (see scripts/encrypt-course.mjs)
 learnTitle: "The idea behind it"
 # updates: see the example format in syntropic-agroforestry/index.md
 updates: []
